@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CalEmbed } from "@/components/CalEmbed";
 import { CommunityCards } from "@/components/CommunityCards";
 import { CtaButton } from "@/components/CtaButton";
-import { ClipReveal, Counter, ScrollAway, ScrubX, SplitReveal } from "@/components/Gsap";
+import { ClipReveal, Counter, ScrollAway, ScrubX, Sequence, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
 import { Services } from "@/components/Services";
 import { VisitCursor } from "@/components/VisitCursor";
@@ -127,22 +127,26 @@ export default function Home() {
 
         {showReviews && (
           <section className="mx-auto max-w-[1280px] px-4 py-16 md:px-8 md:py-32" aria-labelledby="reviews-title">
-            <p className="mb-6 bg-flame px-3 py-2 text-sm text-cream">
-              Dev only: placeholder reviews. Hidden in production until real quotes replace them in content.ts.
-            </p>
-            <Heading id="reviews-title" lead={reviews.lead} accent={reviews.accent} />
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
-              {reviews.items.map((r, i) => (
-                <ClipReveal key={i}>
-                  <figure className="bg-beige p-8">
-                    <blockquote className="font-serif text-2xl italic leading-snug">“{r.quote}”</blockquote>
-                    <figcaption className="mt-6 text-sm">
-                      <span className="font-medium">{r.name}</span>, {r.role}
-                    </figcaption>
-                  </figure>
-                </ClipReveal>
-              ))}
+            <div className="text-center">
+              <Heading id="reviews-title" lead={reviews.lead} accent={reviews.accent} />
             </div>
+            <Sequence className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2 md:gap-6">
+              {reviews.items.map((r) => (
+                <figure key={r.name} className="flex flex-col bg-beige p-6 md:p-10">
+                  <span aria-hidden className="font-serif text-6xl leading-none text-clay md:text-7xl">“</span>
+                  <blockquote className="-mt-4 font-serif text-2xl italic leading-snug md:text-[1.75rem]">{r.quote}</blockquote>
+                  <figcaption className="mt-auto flex items-center gap-4 pt-8">
+                    <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-full bg-clay text-sm font-medium text-ink">
+                      {r.name.split(" ").map((w) => w[0]).join("")}
+                    </span>
+                    <span>
+                      <span className="block font-medium">{r.name}</span>
+                      <span className="block text-sm text-ink/70">{r.role}</span>
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </Sequence>
           </section>
         )}
 

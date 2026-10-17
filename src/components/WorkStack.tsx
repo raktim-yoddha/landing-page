@@ -144,19 +144,23 @@ export function BrowserFrame({ item, sizes, className = "" }: { item: Item; size
     <div className={`relative w-full ${className}`}>
       <div
         aria-hidden
-        className="absolute inset-0 translate-x-3 translate-y-3 bg-clay transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
+        className="absolute inset-0 translate-x-3 translate-y-3 rounded-[10px] bg-clay transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
       />
-      <div className="relative overflow-hidden bg-ink transition-transform duration-500 ease-out group-hover/card:-translate-x-0.5 group-hover/card:-translate-y-0.5">
-        <div className="flex items-center gap-3 px-3 py-2 md:px-4 md:py-2.5">
-          <span aria-hidden className="flex gap-1.5">
-            <span className="size-2 rounded-full bg-flame md:size-2.5" />
-            <span className="size-2 rounded-full bg-orange md:size-2.5" />
-            <span className="size-2 rounded-full bg-cream/40 md:size-2.5" />
+      {/* macOS Safari-style window: light title bar, real traffic-light colours, lock + domain. */}
+      <div className="relative overflow-hidden rounded-[10px] bg-[#f6f5f3] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_22px_44px_-24px_rgba(60,30,15,0.45)] transition-transform duration-500 ease-out group-hover/card:-translate-x-0.5 group-hover/card:-translate-y-0.5">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-black/[0.07] px-3 py-2 md:px-3.5 md:py-2.5">
+          <span aria-hidden className="flex gap-[7px]">
+            <span className="size-[10px] rounded-full bg-[#ff5f57] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.18)] md:size-3" />
+            <span className="size-[10px] rounded-full bg-[#febc2e] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.18)] md:size-3" />
+            <span className="size-[10px] rounded-full bg-[#28c840] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.18)] md:size-3" />
           </span>
-          <span className="min-w-0 flex-1 truncate rounded-full bg-black/35 px-3 py-1 text-center text-[11px] text-cream/75 md:text-xs">
-            {address}
+          <span className="mx-auto flex w-full max-w-[60%] min-w-0 items-center justify-center gap-1.5 rounded-md bg-black/[0.055] px-3 py-[3px] font-[system-ui,-apple-system,'Segoe_UI',sans-serif] text-[11px] tracking-normal text-black/55 md:py-1 md:text-xs">
+            <svg aria-hidden viewBox="0 0 16 16" className="size-[10px] shrink-0 md:size-3" fill="currentColor">
+              <path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2h.5A1 1 0 0 1 13 8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h.5Zm1.5 0h4V5a2 2 0 0 0-4 0v2Z" />
+            </svg>
+            <span className="truncate">{address}</span>
           </span>
-          <span aria-hidden className="w-[30px] md:w-[38px]" />
+          <span aria-hidden className="w-[44px] md:w-[50px]" />
         </div>
         <Image
           src={item.image}

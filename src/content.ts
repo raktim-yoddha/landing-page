@@ -133,9 +133,28 @@ export const reviews = {
   placeholder: true,
   lead: "What clients",
   accent: "say",
+  // SAMPLE quotes to judge the layout. Names and businesses are invented.
   items: [
-    { name: "Client name", role: "Business, city", quote: "Placeholder quote. Replace with a real client's words, with their permission." },
-    { name: "Client name", role: "Business, city", quote: "Placeholder quote. One or two sentences about the result they got works best." },
+    {
+      name: "Priya Shah",
+      role: "Owner, Glow Studio, Ahmedabad",
+      quote: "Our booking form used to sit unanswered over weekends. Now the assistant replies in seconds and the calls land straight in my calendar.",
+    },
+    {
+      name: "Daniel Brooks",
+      role: "Founder, Brooks Renovations",
+      quote: "He rebuilt our site in two weeks and it finally loads fast on phones. We got more enquiries in the first month than the whole quarter before.",
+    },
+    {
+      name: "Meera Iyer",
+      role: "Operations lead, Sattva Clinics",
+      quote: "The automation between our CRM and WhatsApp saves my team about an hour every day.",
+    },
+    {
+      name: "Arjun Mehta",
+      role: "Co-founder, Fieldnote",
+      quote: "Clear plan on the first call, a fixed price, and he delivered exactly what he said he would.",
+    },
   ],
 };
 
