@@ -44,6 +44,16 @@ h3 {
   text-wrap: balance;
 }
 
+/* No lone last words: every paragraph wraps evenly. */
+p,
+li,
+dt,
+blockquote,
+figcaption,
+summary {
+  text-wrap: pretty;
+}
+
 ::selection {
   background: var(--color-flame);
   color: var(--color-cream);

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Raktim Yoddha: websites, apps and automations for small businesses";
+export const alt = "Raktim Yoddha: win customers while you sleep";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -26,8 +26,8 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 28, color: "#ff2b00", fontWeight: 700 }}>RAKTIM YODDHA</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 96, lineHeight: 1, letterSpacing: -3 }}>
-          <span>Websites & automations</span>
-          <span style={{ fontStyle: "italic", color: "#cc5237" }}>for small businesses.</span>
+          <span>Win customers</span>
+          <span style={{ fontStyle: "italic", color: "#cc5237" }}>while you sleep.</span>
         </div>
         <div style={{ fontSize: 30 }}>Websites · Apps · Automations · Chatbots · Local search · Outreach</div>
       </div>

@@ -1,16 +1,11 @@
-import Image from "next/image";
+import Link from "next/link";
 import { CalEmbed } from "@/components/CalEmbed";
 import { CtaButton } from "@/components/CtaButton";
-import { Counter, ScrubX, SplitReveal } from "@/components/Gsap";
+import { ClipReveal, Counter, ScrollAway, ScrubX, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
 import { Services } from "@/components/Services";
 import { WorkStack } from "@/components/WorkStack";
 import { booking, bookingUrl, community, contact, faq, hero, reviews, services, work } from "@/content";
-
-const strip = [
-  { src: "/mypic.png", alt: "Raktim Yoddha", caption: "Raktim, Gujarat" },
-  ...work.items.map((w) => ({ src: w.image, alt: `${w.name} screenshot`, caption: `${w.name}, ${w.tags[0].toLowerCase()}` })),
-];
 
 // Dummy reviews show only in development. See content.ts.
 const showReviews = !reviews.placeholder || process.env.NODE_ENV === "development";
@@ -58,12 +53,12 @@ export default function Home() {
       <main id="main">
         {/* Hero */}
         <section className="overflow-hidden pt-32 md:pt-40">
-          <div className="mx-auto max-w-[1100px] px-4 text-center">
+          <ScrollAway className="mx-auto max-w-[1200px] px-4 text-center">
             <SplitReveal as="h1" onLoad className="text-[clamp(2rem,7vw,6.25rem)] leading-[1] tracking-[-0.03em]">
               <span className="block">{hero.lead}</span>
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
-            <Reveal as="p" delay={0.16} className="mx-auto mt-6 max-w-[34ch] font-serif text-xl italic leading-snug md:text-2xl">
+            <Reveal as="p" delay={0.16} className="mx-auto mt-6 max-w-[36ch] text-balance font-serif text-xl italic leading-snug md:text-2xl">
               {hero.sub}
             </Reveal>
             <Reveal delay={0.24} className="mt-8">
@@ -81,29 +76,8 @@ export default function Home() {
                 ))}
               </dl>
             </Reveal>
-          </div>
+          </ScrollAway>
 
-          <Reveal delay={0.4} className="mt-14 md:mt-20">
-            <div className="group flex w-max animate-marquee gap-4 [--marquee-duration:50s] hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
-              {[...strip, ...strip].map((s, i) => (
-                <figure key={i} className="w-[260px] shrink-0 md:w-[380px]" aria-hidden={i >= strip.length}>
-                  <div className={`relative aspect-[4/3] overflow-hidden ${s.src === "/mypic.png" ? "bg-beige" : "bg-black"}`}>
-                    <Image
-                      src={s.src}
-                      alt={i >= strip.length ? "" : s.alt}
-                      fill
-                      sizes="380px"
-                      priority={i < 3}
-                      className={`grayscale transition-[filter,transform] duration-500 hover:scale-105 hover:grayscale-0 ${
-                        s.src === "/mypic.png" ? "object-cover object-top" : "object-cover object-left-top"
-                      }`}
-                    />
-                  </div>
-                  <figcaption className="mt-2 font-serif text-base italic">{s.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </Reveal>
         </section>
 
         {/* Giant wordmark */}
@@ -146,12 +120,14 @@ export default function Home() {
             <Heading id="reviews-title" lead={reviews.lead} accent={reviews.accent} />
             <div className="mt-12 grid gap-6 md:grid-cols-2">
               {reviews.items.map((r, i) => (
-                <figure key={i} className="bg-beige p-8">
-                  <blockquote className="font-serif text-2xl italic leading-snug">“{r.quote}”</blockquote>
-                  <figcaption className="mt-6 text-sm">
-                    <span className="font-medium">{r.name}</span>, {r.role}
-                  </figcaption>
-                </figure>
+                <ClipReveal key={i}>
+                  <figure className="bg-beige p-8">
+                    <blockquote className="font-serif text-2xl italic leading-snug">“{r.quote}”</blockquote>
+                    <figcaption className="mt-6 text-sm">
+                      <span className="font-medium">{r.name}</span>, {r.role}
+                    </figcaption>
+                  </figure>
+                </ClipReveal>
               ))}
             </div>
           </section>
@@ -184,17 +160,22 @@ export default function Home() {
                 </Reveal>
               ))}
             </ul>
-            <Reveal delay={0.2} className="mt-8 bg-beige p-6 md:p-8">
-              <p className="text-xl font-medium">{community.resources.title}</p>
-              <ul className="mt-4 grid gap-2 font-serif text-lg italic sm:grid-cols-2">
-                {community.resources.items.map((r) => (
-                  <li key={r}>{r}</li>
-                ))}
-              </ul>
-              <a href={community.resources.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm font-medium text-signal underline underline-offset-4 hover:text-ink">
-                {community.resources.cta}
-              </a>
-            </Reveal>
+            <ClipReveal className="mt-8">
+              <Link href={community.resources.url} className="group block bg-beige p-6 transition-colors hover:bg-orange md:p-8">
+                <span className="flex items-start justify-between gap-6">
+                  <span className="text-xl font-medium md:text-2xl">{community.resources.title}</span>
+                  <span aria-hidden className="text-3xl text-signal transition-transform duration-300 group-hover:translate-x-1 group-hover:text-black">→</span>
+                </span>
+                <span className="mt-4 grid gap-2 font-serif text-lg italic sm:grid-cols-2">
+                  {community.resources.items.map((r) => (
+                    <span key={r}>{r}</span>
+                  ))}
+                </span>
+                <span className="mt-6 inline-block text-sm font-medium text-signal underline underline-offset-4 group-hover:text-black">
+                  {community.resources.cta}
+                </span>
+              </Link>
+            </ClipReveal>
           </div>
         </section>
 
@@ -226,9 +207,9 @@ export default function Home() {
               {booking.body}
             </Reveal>
           </div>
-          <div className="mx-auto mt-12 max-w-[1040px] bg-cream">
+          <ClipReveal className="mx-auto mt-12 max-w-[1040px] bg-cream">
             <CalEmbed />
-          </div>
+          </ClipReveal>
           <p className="mt-6 text-center text-sm">
             {booking.fallback}{" "}
             <a href={`mailto:${contact.email}?subject=Free%20call`} className="text-signal underline underline-offset-4">
@@ -240,10 +221,10 @@ export default function Home() {
 
       <footer className="overflow-hidden bg-rust text-cream">
         <div className="mx-auto max-w-[1440px] px-4 pt-16 md:px-8 md:pt-24">
-          <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
-            <p className="max-w-[24ch] font-serif text-3xl italic leading-tight md:text-[2rem] lg:text-4xl">
+          <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
+            <SplitReveal as="p" className="max-w-[30ch] font-serif text-3xl italic leading-tight md:text-[2rem] lg:max-w-[24ch] lg:text-4xl">
               Websites, apps and automations for businesses that want their evenings back.
-            </p>
+            </SplitReveal>
             <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
               <li><a href={`mailto:${contact.email}`} className="hover:underline">{contact.email}</a></li>
               <li><a href={contact.youtube} target="_blank" rel="noopener noreferrer" className="hover:underline">YouTube</a></li>

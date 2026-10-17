@@ -147,3 +147,53 @@ export function ScrubX({ children, distance = -30, className }: { children: Reac
     </div>
   );
 }
+
+/** Unmasks upward from the bottom edge as it enters the viewport (clip-path + small rise). */
+export function ClipReveal({ children, className }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add(motionOk, () => {
+      gsap.from(ref.current, {
+        clipPath: "inset(100% 0% 0% 0%)",
+        y: 40,
+        duration: 1.1,
+        ease: "expo.out",
+        clearProps: "clipPath",
+        scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
+      });
+    });
+    return () => mm.revert();
+  });
+
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
+}
+
+/** Scroll-linked drift: moves up and fades as its section scrolls out of view. */
+export function ScrollAway({ children, className }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add(motionOk, () => {
+      gsap.to(ref.current, {
+        yPercent: -18,
+        opacity: 0.15,
+        ease: "none",
+        scrollTrigger: { trigger: ref.current, start: "top top+=120", end: "bottom top", scrub: 0.5 },
+      });
+    });
+    return () => mm.revert();
+  });
+
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
+}

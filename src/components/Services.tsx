@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { bookingUrl, services } from "@/content";
 import { CtaButton } from "./CtaButton";
+import { ClipReveal } from "./Gsap";
 import { Reveal } from "./Motion";
 
 /** Sticky list on the left fills its dots as each service panel crosses mid-screen. */
@@ -77,7 +78,7 @@ export function Services() {
               {s.name}
             </h3>
             <Reveal as="p" className="mt-3 max-w-[30ch] font-serif text-2xl italic leading-tight md:mt-0 md:text-3xl lg:text-4xl">{s.outcome}</Reveal>
-            <div className="mt-8 bg-beige p-6 md:p-12">
+            <ClipReveal className="mt-8 bg-beige p-6 md:p-12">
               <p className="text-3xl font-medium tracking-tight md:text-5xl" aria-hidden>
                 {s.name}
               </p>
@@ -89,7 +90,7 @@ export function Services() {
                   </Reveal>
                 ))}
               </ul>
-            </div>
+            </ClipReveal>
           </section>
         ))}
       </div>

@@ -75,37 +75,45 @@ function Card({ item, i }: { item: Item; i: number }) {
     <article
       data-card
       style={{ zIndex: i + 1 }}
-      className="flex w-full max-w-[min(1280px,calc((100svh-340px)*1.9))] origin-top xl:max-w-[1280px] flex-col overflow-hidden bg-beige will-change-transform group-data-[stack=on]/stack:[grid-area:1/1] xl:flex-row"
+      className="group/card flex h-[min(calc(100svh-112px),720px)] w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige will-change-transform group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
-      <div className="bg-black xl:w-[62%] xl:shrink-0">
+      {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
+      <div className="grid h-[40%] shrink-0 place-items-center bg-black p-5 md:h-auto md:w-1/2 md:p-10">
         <Image
           src={item.image}
           alt={`${item.name} homepage screenshot`}
           width={item.size[0]}
           height={item.size[1]}
-          sizes="(min-width: 1280px) 800px, (min-width: 768px) 90vw, 100vw"
-          className="block h-auto w-full"
+          sizes="(min-width: 768px) 560px, 90vw"
+          className="h-auto max-h-full w-auto max-w-full object-contain transition-transform duration-700 ease-out group-hover/card:scale-[1.03] md:max-w-[88%]"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5 md:grid md:grid-cols-[1fr_1.3fr] md:gap-x-10 md:p-8 xl:flex xl:p-10">
-        <div>
-          <h3 className="text-[1.75rem] font-medium uppercase leading-none tracking-tight md:text-4xl xl:text-[2.75rem]">{item.name}</h3>
+      <div className="flex min-h-0 flex-1 p-3 md:p-6">
+        <div className="flex flex-1 flex-col border border-orange p-5 md:p-10">
+          <h3 className="text-3xl uppercase leading-[0.95] tracking-tight md:text-4xl lg:text-5xl xl:text-6xl">{item.name}</h3>
           <p className="mt-2 font-serif text-lg italic text-rust">{item.tags.join(" · ")}</p>
-        </div>
-        <div className="flex flex-col gap-4 xl:mt-3 xl:flex-1">
-          <p className="font-serif text-lg italic leading-snug md:text-xl">{item.body}</p>
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex w-fit items-center gap-3 bg-signal px-6 py-4 text-sm font-medium text-cream transition-colors hover:bg-ink xl:mt-auto"
-          >
-            {item.linkLabel}
-            <span aria-hidden className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
-              ↗
-            </span>
-            <span className="sr-only">(opens in a new tab)</span>
-          </a>
+          <p className="mt-3 max-w-[40ch] font-serif text-lg italic leading-snug md:mt-5 md:text-xl lg:text-2xl">{item.body}</p>
+          <div className="mt-auto flex items-end justify-between gap-4 pt-4">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 bg-signal px-5 py-3.5 text-sm font-medium text-cream transition-colors hover:bg-ink md:px-6 md:py-4 md:text-base"
+            >
+              {item.linkLabel}
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+            <svg
+              aria-hidden
+              viewBox="0 0 48 48"
+              className="size-10 text-flame transition-transform duration-500 group-hover/card:-translate-y-1 group-hover/card:translate-x-1 md:size-14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+            >
+              <path d="M10 38 38 10M16 10h22v22" />
+            </svg>
+          </div>
         </div>
       </div>
     </article>

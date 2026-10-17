@@ -14,16 +14,16 @@ export const contact = {
 };
 
 export const meta = {
-  title: "Raktim Yoddha | Websites, Apps & Automations for Small Businesses",
+  title: "Raktim Yoddha | Websites, AI Chatbots & Automations That Win Customers",
   description:
-    "Raktim Yoddha designs and builds websites, apps, automations and AI chatbots for small businesses, plus local Google rankings and outreach. Based in Gujarat, India. Book a free 30-minute call.",
+    "Raktim Yoddha designs and builds websites, apps, AI chatbots and automations that bring in customers and handle the follow-up, plus local Google ranking and outreach. Based in Gujarat, India. Book a free 30-minute call.",
 };
 
 export const hero = {
-  // Rendered as: "Websites & automations" + italic "for small businesses."
-  lead: "Websites & automations",
-  accent: "for small businesses.",
-  sub: "I'm Raktim. I design and build the site that brings customers in, then the apps, chatbots and automations that handle what comes next.",
+  // Rendered as: "Win customers" + italic "while you sleep."
+  lead: "Win customers",
+  accent: "while you sleep.",
+  sub: "I'm Raktim. I build the website that brings people in, plus the chatbots and automations that reply, book and follow up for you.",
   cta: "Book a free 30-min call",
   stats: [
     { value: 2, suffix: "+", label: "years building for clients" },
@@ -37,64 +37,34 @@ export const services = {
   accent: "off your plate",
   items: [
     {
-      name: "Websites that sell",
-      outcome: "A site that loads fast, shows up on Google and turns visitors into booked calls.",
-      points: [
-        "Custom design for phone, tablet and desktop",
-        "Landing pages built around one action",
-        "Next.js and React under the hood",
-        "Speed and on-page SEO from day one",
-      ],
+      name: "Websites",
+      outcome: "Fast sites that turn visitors into enquiries.",
+      points: ["Custom design for every screen", "Built around one clear action", "Loads fast, ranks on Google", "Easy for you to update"],
     },
     {
-      name: "Custom apps",
-      outcome: "Web and mobile apps your customers keep opening after the first week.",
-      points: [
-        "Full-stack web and mobile development",
-        "Backends and APIs that hold up as users grow",
-        "Secure sign-in and data sync across devices",
-        "Screens designed around what users do daily",
-      ],
+      name: "Apps",
+      outcome: "Web and mobile apps your customers keep using.",
+      points: ["Web and mobile", "Secure logins", "Grows with your users", "Simple, clear screens"],
     },
     {
-      name: "Busywork, automated",
-      outcome: "The copy-paste work between your apps, handed to the apps themselves.",
-      points: [
-        "Workflows that run across several apps end to end",
-        "CRM, database and notification sync the moment data changes",
-        "Error handling that alerts you before a customer notices",
-        "Custom webhooks and API integrations",
-      ],
+      name: "Automations",
+      outcome: "Your apps do the repetitive work for you.",
+      points: ["Connects the tools you use", "Updates your CRM instantly", "Alerts you if something breaks", "Custom integrations"],
     },
     {
-      name: "AI that answers leads",
-      outcome: "An assistant that answers a lead at 2 a.m. and books them into your calendar.",
-      points: [
-        "AI agents trained on your own documents and FAQs",
-        "Lead qualification and support around the clock",
-        "Bookings and CRM handoff without a human in between",
-        "Deployed on the messaging channels your customers use",
-      ],
+      name: "AI chatbots",
+      outcome: "Answers customers and books calls, day and night.",
+      points: ["Trained on your business", "Replies to leads 24/7", "Books meetings for you", "Works on your site and chat apps"],
     },
     {
-      name: "Rank in your area",
-      outcome: "Show up on Google and Maps when people nearby search for what you sell.",
-      points: [
-        "Google Business Profile tuned for map results",
-        "Listings on trusted local directories",
-        "A page for each area you serve",
-        "A routine for collecting and answering reviews",
-      ],
+      name: "Local Google ranking",
+      outcome: "Show up when people nearby search Google.",
+      points: ["Google Business Profile setup", "Listings on local directories", "A page for each area you serve", "More reviews, answered fast"],
     },
     {
-      name: "Reach new buyers",
-      outcome: "Cold email and LinkedIn campaigns that land in front of verified buyers.",
-      points: [
-        "Email and LinkedIn sequences written for your offer",
-        "B2B lead lists checked before anyone gets a message",
-        "Domain warm-up and deliverability setup",
-        "Copy tested against a second version",
-      ],
+      name: "Finding new clients",
+      outcome: "Cold emails and LinkedIn messages that get replies.",
+      points: ["Email and LinkedIn campaigns", "Verified lead lists", "Lands in the inbox", "Copy tested and improved"],
     },
   ],
 };
@@ -175,9 +145,8 @@ export const community = {
   resources: {
     title: "Free resources from the streams",
     items: ["Master Next.js with AI", "Notion CRM Kit", "The Automation Playbook", "Local SEO Checklist"],
-    // ponytail: no real download links exist yet, so this points at the channel.
-    url: contact.youtube,
-    cta: "Get them on YouTube",
+    url: "/resources",
+    cta: "Browse the free resources",
   },
 };
 
@@ -226,3 +195,19 @@ export const booking = {
   body: "Pick a 30-minute slot. It's free, and you'll leave with a plan for what to build first.",
   fallback: "Calendar not loading? Email me",
 };
+
+// Hidden page: reachable only from the community section.
+export const resourcesPage = {
+  title: "Free resources",
+  lead: "Free",
+  accent: "resources",
+  body: "Workshops, templates and playbooks I share with the community. All free.",
+  // ponytail: no download files exist yet, so each card emails a request.
+  items: [
+    { name: "Master Next.js with AI", poster: "Master Next.js", kind: "Live workshop", tagline: "with AI", detail: "Oct 7, 2026 · 8:30 PM IST", motif: "hex", tone: "orange" },
+    { name: "Notion CRM Kit", kind: "Free template", tagline: "track every client", detail: "100% free", motif: "windows", tone: "ink" },
+    { name: "The Automation Playbook", poster: "Automation Playbook", kind: "E-book", tagline: "work less, ship more", detail: "42 pages", motif: "circuit", tone: "rust" },
+    { name: "Local SEO Checklist", kind: "Cheat sheet", tagline: "get found nearby", detail: "25 checks", motif: "pin", tone: "beige" },
+  ],
+  cta: { lead: "Ready to grow your", accent: "business?", body: "Websites, apps, automations, chatbots, local Google ranking and outreach, built to bring you more customers. Tell me where you want to grow on a free call." },
+} as const;
