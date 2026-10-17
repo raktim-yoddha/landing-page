@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { work } from "@/content";
 import "./Gsap"; // registers ScrollTrigger
 
@@ -122,40 +122,70 @@ function Card({ item, i }: { item: Item; i: number }) {
 }
 
 /**
- * The screenshot panel links to the live site. With a mouse, the pointer becomes a
- * red "Visit site" circle that trails the cursor (position written straight to the
- * element's transform, no React re-renders).
+ * The screenshot panel links to the live site. With a mouse, a red "Visit site"
+ * circle sits exactly on the cursor (position written straight to the transform,
+ * no easing, no React re-renders) and only fades in/out. The system pointer is
+ * hidden only while the circle is showing.
  */
 function ShotLink({ item, children }: { item: Item; children: React.ReactNode }) {
   const dot = useRef<HTMLSpanElement>(null);
+  const link = useRef<HTMLAnchorElement>(null);
+  const last = useRef({ x: -1, y: -1 });
+
+  // Scrolling moves the card away from a still mouse; hide until the next pointer move.
+  useEffect(() => {
+    const hide = () => {
+      if (dot.current?.dataset.on !== "true") return;
+      dot.current.dataset.on = "false";
+      if (link.current) link.current.dataset.cursor = "";
+    };
+    window.addEventListener("scroll", hide, { passive: true });
+    return () => window.removeEventListener("scroll", hide);
+  }, []);
+
+  const place = (e: React.PointerEvent<HTMLAnchorElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    // Keep the whole circle (56px radius) inside the panel so it is never cut in half at an edge.
+    const clamp = (v: number, max: number) => Math.min(Math.max(v, 56), max - 56);
+    dot.current!.style.transform = `translate3d(${clamp(e.clientX - r.left, r.width)}px, ${clamp(e.clientY - r.top, r.height)}px, 0)`;
+  };
+  const show = (e: React.PointerEvent<HTMLAnchorElement>, on: boolean) => {
+    if (e.pointerType !== "mouse" || !dot.current) return;
+    // Content sliding under a still mouse fires pointerenter too; only real moves count.
+    if (on && e.clientX === last.current.x && e.clientY === last.current.y) return;
+    if (on) place(e);
+    last.current = { x: e.clientX, y: e.clientY };
+    dot.current.dataset.on = String(on);
+    e.currentTarget.dataset.cursor = on ? "dot" : "";
+  };
   const move = (e: React.PointerEvent<HTMLAnchorElement>) => {
     if (e.pointerType !== "mouse" || !dot.current) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    dot.current.style.transform = `translate3d(${e.clientX - r.left}px, ${e.clientY - r.top}px, 0)`;
-  };
-  const toggle = (e: React.PointerEvent<HTMLAnchorElement>, on: boolean) => {
-    if (e.pointerType !== "mouse" || !dot.current) return;
-    if (on) move(e);
-    dot.current.dataset.on = on ? "true" : "false";
+    // Browsers fire a synthetic move after scrolling with the mouse still; ignore it.
+    if (e.clientX === last.current.x && e.clientY === last.current.y) return;
+    last.current = { x: e.clientX, y: e.clientY };
+    place(e);
+    // A card can slide in under a still mouse without firing pointerenter.
+    if (dot.current.dataset.on !== "true") show(e, true);
   };
   return (
     <a
+      ref={link}
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit ${item.name} (opens in a new tab)`}
       draggable={false}
-      onPointerEnter={(e) => toggle(e, true)}
+      onPointerEnter={(e) => show(e, true)}
       onPointerMove={move}
-      onPointerLeave={(e) => toggle(e, false)}
-      className="relative grid shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
+      onPointerLeave={(e) => show(e, false)}
+      className="relative grid shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] data-[cursor=dot]:cursor-none md:h-auto md:w-1/2 md:p-10"
     >
       {children}
       <span
         ref={dot}
         aria-hidden
         data-on="false"
-        className="pointer-events-none absolute left-0 top-0 -ml-14 -mt-14 hidden size-28 scale-50 flex-col items-center justify-center gap-1 rounded-full bg-signal text-cream opacity-0 transition-[opacity,scale,transform] duration-200 ease-out data-[on=true]:scale-100 data-[on=true]:opacity-100 [@media(pointer:fine)]:flex"
+        className="pointer-events-none absolute left-0 top-0 -ml-14 -mt-14 hidden size-28 flex-col items-center justify-center gap-1 rounded-full bg-signal text-cream opacity-0 transition-opacity duration-150 ease-out data-[on=true]:opacity-100 [@media(pointer:fine)]:flex"
       >
         <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M7 17 17 7M9 7h8v8" />
