@@ -75,6 +75,19 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
+/* Split text stays hidden until GSAP has split it; the 3s fallback shows it if a script fails. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-split] {
+    visibility: hidden;
+    animation: split-failsafe 0s 3s forwards;
+  }
+}
+@keyframes split-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;

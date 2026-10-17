@@ -16,19 +16,19 @@ export const contact = {
 export const meta = {
   title: "Raktim Yoddha | Websites, Apps & Automations for Small Businesses",
   description:
-    "Raktim Yoddha designs and builds websites, apps, automations and AI chatbots for small businesses, plus local SEO and outreach. Based in Gujarat, India. Book a free 30-minute call.",
+    "Raktim Yoddha designs and builds websites, apps, automations and AI chatbots for small businesses, plus local Google rankings and outreach. Based in Gujarat, India. Book a free 30-minute call.",
 };
 
 export const hero = {
-  // Rendered as: "I put businesses" + italic "on autopilot."
-  lead: "I put businesses",
-  accent: "on autopilot.",
-  sub: "Websites that bring in leads, and the automations and chatbots that answer them while you sleep.",
+  // Rendered as: "Websites & automations" + italic "for small businesses."
+  lead: "Websites & automations",
+  accent: "for small businesses.",
+  sub: "I'm Raktim. I design and build the site that brings customers in, then the apps, chatbots and automations that handle what comes next.",
   cta: "Book a free 30-min call",
   stats: [
-    { value: "2+", label: "years building for clients" },
-    { value: "10+", label: "projects shipped" },
-    { value: "1,000+", label: "people watch me code on YouTube" },
+    { value: 2, suffix: "+", label: "years building for clients" },
+    { value: 10, suffix: "+", label: "projects shipped" },
+    { value: 1000, suffix: "+", label: "people watch me code on YouTube" },
   ],
 };
 
@@ -37,7 +37,7 @@ export const services = {
   accent: "off your plate",
   items: [
     {
-      name: "Websites",
+      name: "Websites that sell",
       outcome: "A site that loads fast, shows up on Google and turns visitors into booked calls.",
       points: [
         "Custom design for phone, tablet and desktop",
@@ -47,7 +47,7 @@ export const services = {
       ],
     },
     {
-      name: "Apps",
+      name: "Custom apps",
       outcome: "Web and mobile apps your customers keep opening after the first week.",
       points: [
         "Full-stack web and mobile development",
@@ -57,7 +57,7 @@ export const services = {
       ],
     },
     {
-      name: "Automations",
+      name: "Busywork, automated",
       outcome: "The copy-paste work between your apps, handed to the apps themselves.",
       points: [
         "Workflows that run across several apps end to end",
@@ -67,7 +67,7 @@ export const services = {
       ],
     },
     {
-      name: "Chatbots",
+      name: "AI that answers leads",
       outcome: "An assistant that answers a lead at 2 a.m. and books them into your calendar.",
       points: [
         "AI agents trained on your own documents and FAQs",
@@ -77,17 +77,17 @@ export const services = {
       ],
     },
     {
-      name: "Local SEO",
-      outcome: "Show up when people nearby search for what you sell.",
+      name: "Rank in your area",
+      outcome: "Show up on Google and Maps when people nearby search for what you sell.",
       points: [
-        "Google Business Profile set up to rank",
+        "Google Business Profile tuned for map results",
         "Listings on trusted local directories",
-        "Pages targeted at the areas you serve",
+        "A page for each area you serve",
         "A routine for collecting and answering reviews",
       ],
     },
     {
-      name: "Outreach",
+      name: "Reach new buyers",
       outcome: "Cold email and LinkedIn campaigns that land in front of verified buyers.",
       points: [
         "Email and LinkedIn sequences written for your offer",
@@ -108,6 +108,7 @@ export const work = {
       tags: ["Landing page"],
       body: "A landing page for a nutrition practice that sells evidence-based, personalised diet plans and consultations built around real-life health goals.",
       image: "/work/glowwithnutrition.png",
+      size: [1906, 977],
       url: "https://www.glowwithnutrition.fit/",
       linkLabel: "Visit site",
     },
@@ -116,6 +117,7 @@ export const work = {
       tags: ["Landing page", "Desktop app"],
       body: "A local-first desktop workspace where autonomous AI agents, recursive split panes and local chat share one window.",
       image: "/work/hiveory.png",
+      size: [1911, 977],
       url: "https://hiveory.vercel.app/",
       linkLabel: "Visit site",
     },
@@ -124,6 +126,7 @@ export const work = {
       tags: ["Desktop app"],
       body: "A small floating productivity tool with goal widgets, focus timers and overlay states. The code is open on GitHub.",
       image: "/work/taskmaster.png",
+      size: [1917, 1078],
       url: "https://github.com/raktim-yoddha/taskmaster",
       linkLabel: "View on GitHub",
     },
@@ -132,7 +135,17 @@ export const work = {
       tags: ["Web app", "AI platform"],
       body: "A platform where engineers share the editor rules, MCP configs and agent workflows they run in production.",
       image: "/work/skillshare.png",
+      size: [1906, 958],
       url: "https://skillsharehq.vercel.app/",
+      linkLabel: "Visit site",
+    },
+    {
+      name: "Raktim Yoddha",
+      tags: ["Portfolio site"],
+      body: "My previous portfolio, with a full-screen portrait hero, service breakdowns, a project gallery and Cal.com booking.",
+      image: "/work/portfolio.png",
+      size: [1906, 977],
+      url: "https://raktimyoddha.vercel.app/",
       linkLabel: "Visit site",
     },
   ],
@@ -208,8 +221,8 @@ export const faq = {
 };
 
 export const booking = {
-  lead: "Ready to put yours",
-  accent: "on autopilot?",
+  lead: "Tell me what's",
+  accent: "slowing you down",
   body: "Pick a 30-minute slot. It's free, and you'll leave with a plan for what to build first.",
   fallback: "Calendar not loading? Email me",
 };

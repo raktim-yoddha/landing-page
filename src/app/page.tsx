@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CalEmbed } from "@/components/CalEmbed";
 import { CtaButton } from "@/components/CtaButton";
+import { Counter, ScrubX, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
 import { Services } from "@/components/Services";
 import { WorkStack } from "@/components/WorkStack";
@@ -14,11 +15,12 @@ const strip = [
 // Dummy reviews show only in development. See content.ts.
 const showReviews = !reviews.placeholder || process.env.NODE_ENV === "development";
 
-function Heading({ lead, accent, className = "" }: { lead: string; accent: string; className?: string }) {
+/** Section h2: plain words, then the italic serif accent, revealed line by line. */
+function Heading({ id, lead, accent, className = "" }: { id: string; lead: string; accent: string; className?: string }) {
   return (
-    <h2 className={`text-4xl leading-[1.1] tracking-tight md:text-5xl ${className}`}>
+    <SplitReveal as="h2" id={id} className={`text-4xl leading-[1.1] tracking-tight md:text-5xl lg:text-6xl ${className}`}>
       {lead} <em className="font-serif font-normal">{accent}</em>
-    </h2>
+    </SplitReveal>
   );
 }
 
@@ -57,12 +59,10 @@ export default function Home() {
         {/* Hero */}
         <section className="overflow-hidden pt-32 md:pt-40">
           <div className="mx-auto max-w-[1100px] px-4 text-center">
-            <h1 className="text-[clamp(2.75rem,8vw,7rem)] leading-[0.98] tracking-[-0.03em]">
-              <Reveal as="span" className="block">{hero.lead}</Reveal>
-              <Reveal as="span" delay={0.08} className="block font-serif italic">
-                {hero.accent}
-              </Reveal>
-            </h1>
+            <SplitReveal as="h1" onLoad className="text-[clamp(2rem,7vw,6.25rem)] leading-[1] tracking-[-0.03em]">
+              <span className="block">{hero.lead}</span>
+              <span className="block font-serif italic">{hero.accent}</span>
+            </SplitReveal>
             <Reveal as="p" delay={0.16} className="mx-auto mt-6 max-w-[34ch] font-serif text-xl italic leading-snug md:text-2xl">
               {hero.sub}
             </Reveal>
@@ -74,7 +74,9 @@ export default function Home() {
                 {hero.stats.map((s) => (
                   <div key={s.label} className="flex flex-col-reverse items-center gap-1">
                     <dt className="text-[13px] leading-tight text-ink/80 md:text-sm">{s.label}</dt>
-                    <dd className="text-3xl font-medium tracking-tight tabular-nums md:text-4xl">{s.value}</dd>
+                    <dd className="text-3xl font-medium tracking-tight tabular-nums md:text-4xl">
+                      <Counter value={s.value} suffix={s.suffix} />
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -106,33 +108,33 @@ export default function Home() {
 
         {/* Giant wordmark */}
         <div aria-hidden className="mt-20 overflow-hidden md:mt-28">
-          <div className="flex w-max animate-marquee [--marquee-duration:30s]">
-            {Array.from({ length: 4 }, (_, i) => (
-              <span key={i} className="outline-text whitespace-nowrap pr-[0.3em] text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] md:text-[15vw]">
-                RAKTIM YODDHA
-              </span>
-            ))}
-          </div>
+          <ScrubX distance={-20}>
+            <div className="flex w-max animate-marquee [--marquee-duration:30s]">
+              {Array.from({ length: 4 }, (_, i) => (
+                <span key={i} className="outline-text whitespace-nowrap pr-[0.3em] text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] md:text-[15vw]">
+                  RAKTIM YODDHA
+                </span>
+              ))}
+            </div>
+          </ScrubX>
         </div>
 
         {/* Services */}
         <section id="services" className="py-24 md:py-40" aria-labelledby="services-title">
-          <Reveal className="mx-auto mb-14 max-w-[900px] px-4 text-center md:mb-20">
-            <h2 id="services-title" className="text-4xl leading-[1.1] tracking-tight md:text-6xl">
-              {services.lead} <em className="font-serif font-normal">{services.accent}</em>
-            </h2>
-          </Reveal>
+          <div className="mx-auto mb-14 max-w-[900px] px-4 text-center md:mb-20">
+            <Heading id="services-title" lead={services.lead} accent={services.accent} />
+          </div>
           <Services />
         </section>
 
-        {/* Work: stacked sliding cards */}
+        {/* Work: pinned cards that slide over each other */}
         <section id="work" className="bg-orange pt-24 md:pt-32" aria-labelledby="work-title">
-          <Reveal className="px-4 text-center">
-            <h2 id="work-title" className="text-4xl leading-[1.1] tracking-tight text-black md:text-6xl">
-              {work.lead} <em className="font-serif font-normal">{work.accent}</em>
-            </h2>
-            <span aria-hidden className="mt-4 block text-4xl text-black">↓</span>
-          </Reveal>
+          <div className="px-4 text-center">
+            <Heading id="work-title" lead={work.lead} accent={work.accent} className="text-black" />
+            <Reveal as="span" delay={0.3} className="mt-4 block text-4xl text-black">
+              <span aria-hidden className="inline-block animate-bounce">↓</span>
+            </Reveal>
+          </div>
           <WorkStack />
         </section>
 
@@ -141,7 +143,7 @@ export default function Home() {
             <p className="mb-6 bg-flame px-3 py-2 text-sm text-cream">
               Dev only: placeholder reviews. Hidden in production until real quotes replace them in content.ts.
             </p>
-            <Heading lead={reviews.lead} accent={reviews.accent} />
+            <Heading id="reviews-title" lead={reviews.lead} accent={reviews.accent} />
             <div className="mt-12 grid gap-6 md:grid-cols-2">
               {reviews.items.map((r, i) => (
                 <figure key={i} className="bg-beige p-8">
@@ -157,12 +159,12 @@ export default function Home() {
 
         {/* Community */}
         <section id="community" className="mx-auto grid max-w-[1280px] gap-12 px-4 py-24 md:grid-cols-[1fr_1.4fr] md:gap-20 md:px-8 md:py-40" aria-labelledby="community-title">
-          <Reveal>
-            <h2 id="community-title" className="text-4xl leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
-              {community.lead} <em className="font-serif font-normal">{community.accent}</em>
-            </h2>
-            <p className="mt-6 max-w-[36ch] font-serif text-2xl italic leading-snug">{community.body}</p>
-          </Reveal>
+          <div>
+            <Heading id="community-title" lead={community.lead} accent={community.accent} />
+            <Reveal as="p" delay={0.2} className="mt-6 max-w-[36ch] font-serif text-2xl italic leading-snug">
+              {community.body}
+            </Reveal>
+          </div>
           <div>
             <ul className="divide-y divide-ink/15 border-y border-ink/15">
               {community.channels.map((c, i) => (
@@ -198,32 +200,32 @@ export default function Home() {
 
         {/* FAQ */}
         <section id="faq" className="mx-auto max-w-[960px] px-4 pb-24 md:pb-40" aria-labelledby="faq-title">
-          <Reveal className="text-center">
-            <h2 id="faq-title" className="text-4xl leading-[1.1] tracking-tight md:text-6xl">
-              {faq.lead} <em className="font-serif font-normal">{faq.accent}</em>
-            </h2>
-          </Reveal>
+          <div className="text-center">
+            <Heading id="faq-title" lead={faq.lead} accent={faq.accent} />
+          </div>
           <div className="mt-12 border-t border-ink/20 md:mt-16">
-            {faq.items.map((f) => (
-              <details key={f.q} className="group border-b border-ink/20">
-                <summary className="flex cursor-pointer items-center justify-between gap-6 py-6 text-lg md:text-xl">
-                  {f.q}
-                  <span aria-hidden className="text-2xl text-signal transition-transform duration-300 group-open:rotate-45">+</span>
-                </summary>
-                <p className="max-w-[60ch] pb-6 font-serif text-xl italic leading-snug">{f.a}</p>
-              </details>
+            {faq.items.map((f, i) => (
+              <Reveal key={f.q} delay={i * 0.05}>
+                <details className="group border-b border-ink/20">
+                  <summary className="flex cursor-pointer items-center justify-between gap-6 py-6 text-lg md:text-xl">
+                    {f.q}
+                    <span aria-hidden className="text-2xl text-signal transition-transform duration-300 group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="max-w-[60ch] pb-6 font-serif text-xl italic leading-snug">{f.a}</p>
+                </details>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* Booking */}
         <section id="book" className="bg-beige px-4 py-24 md:py-32" aria-labelledby="book-title">
-          <Reveal className="mx-auto max-w-[900px] text-center">
-            <h2 id="book-title" className="text-4xl leading-[1.1] tracking-tight md:text-6xl">
-              {booking.lead} <em className="font-serif font-normal">{booking.accent}</em>
-            </h2>
-            <p className="mt-4 font-serif text-xl italic md:text-2xl">{booking.body}</p>
-          </Reveal>
+          <div className="mx-auto max-w-[900px] text-center">
+            <Heading id="book-title" lead={booking.lead} accent={booking.accent} />
+            <Reveal as="p" delay={0.2} className="mt-4 font-serif text-xl italic md:text-2xl">
+              {booking.body}
+            </Reveal>
+          </div>
           <div className="mx-auto mt-12 max-w-[1040px] bg-cream">
             <CalEmbed />
           </div>
@@ -250,9 +252,11 @@ export default function Home() {
               <li><a href={contact.github} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a></li>
             </ul>
           </div>
-          <p aria-hidden className="mt-16 whitespace-nowrap text-[12.4vw] font-semibold leading-[0.8] tracking-[-0.05em] md:mt-24 2xl:text-[12.8vw]">
-            RAKTIM YODDHA
-          </p>
+          <div aria-hidden>
+            <SplitReveal as="p" type="chars" className="mt-16 whitespace-nowrap text-[12.4vw] font-semibold leading-[0.8] tracking-[-0.05em] md:mt-24 2xl:text-[12.8vw]">
+              RAKTIM YODDHA
+            </SplitReveal>
+          </div>
           <div className="flex justify-between py-6 text-[13px] text-cream/90">
             <span>© 2026 Raktim Yoddha. Gujarat, India.</span>
             <a href="#" className="hover:underline">Back to top ↑</a>

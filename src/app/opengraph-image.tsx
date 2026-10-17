@@ -26,10 +26,10 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 28, color: "#ff2b00", fontWeight: 700 }}>RAKTIM YODDHA</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 96, lineHeight: 1, letterSpacing: -3 }}>
-          <span>I put businesses</span>
-          <span style={{ fontStyle: "italic", color: "#cc5237" }}>on autopilot.</span>
+          <span>Websites & automations</span>
+          <span style={{ fontStyle: "italic", color: "#cc5237" }}>for small businesses.</span>
         </div>
-        <div style={{ fontSize: 30 }}>Websites · Apps · Automations · Chatbots · Local SEO · Outreach</div>
+        <div style={{ fontSize: 30 }}>Websites · Apps · Automations · Chatbots · Local search · Outreach</div>
       </div>
     ),
     size,

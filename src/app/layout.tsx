@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { SmoothScroll } from "@/components/Motion";
+import { SmoothScroll } from "@/components/Gsap";
 import { contact, faq, meta, siteUrl } from "@/content";
 import "./globals.css";
 
@@ -76,8 +76,10 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <body>
+        {/* Lets CSS hide split text only when JS will reveal it. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <SmoothScroll>{children}</SmoothScroll>
       </body>

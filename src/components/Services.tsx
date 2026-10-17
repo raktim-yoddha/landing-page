@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { bookingUrl, services } from "@/content";
 import { CtaButton } from "./CtaButton";
+import { Reveal } from "./Motion";
 
 /** Sticky list on the left fills its dots as each service panel crosses mid-screen. */
 export function Services() {
@@ -75,17 +76,17 @@ export function Services() {
             <h3 id={`service-${i}-title`} className="text-sm uppercase tracking-wide text-rust md:sr-only">
               {s.name}
             </h3>
-            <p className="mt-3 max-w-[30ch] font-serif text-2xl italic leading-tight md:mt-0 md:text-3xl lg:text-4xl">{s.outcome}</p>
+            <Reveal as="p" className="mt-3 max-w-[30ch] font-serif text-2xl italic leading-tight md:mt-0 md:text-3xl lg:text-4xl">{s.outcome}</Reveal>
             <div className="mt-8 bg-beige p-6 md:p-12">
               <p className="text-3xl font-medium tracking-tight md:text-5xl" aria-hidden>
                 {s.name}
               </p>
               <ul className="mt-8 grid gap-x-10 gap-y-5 sm:grid-cols-2">
-                {s.points.map((p) => (
-                  <li key={p} className="flex gap-3 text-base leading-snug md:text-xl">
+                {s.points.map((p, j) => (
+                  <Reveal as="li" key={p} delay={j * 0.07} className="flex gap-3 text-base leading-snug md:text-xl">
                     <span aria-hidden className="mt-2 size-2 shrink-0 bg-flame" />
                     {p}
-                  </li>
+                  </Reveal>
                 ))}
               </ul>
             </div>
