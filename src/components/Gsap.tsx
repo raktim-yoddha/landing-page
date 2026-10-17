@@ -61,11 +61,13 @@ export function SplitReveal({
         SplitText.create(el, {
           type: type === "chars" ? "chars,lines" : "lines",
           mask: type,
+          linesClass: "split-line",
+          charsClass: "split-char",
           autoSplit: true,
           onSplit(self) {
             gsap.set(el, { visibility: "visible" });
             return gsap.from(type === "chars" ? self.chars : self.lines, {
-              yPercent: 110,
+              yPercent: 120,
               duration: type === "chars" ? 0.8 : 1,
               ease: "expo.out",
               stagger: type === "chars" ? 0.025 : 0.1,

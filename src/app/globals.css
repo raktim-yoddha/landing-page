@@ -105,7 +105,6 @@ summary {
 @keyframes cta-nudge {
   50% {
     transform: translateX(var(--nudge, 5px));
-    opacity: 0.55;
   }
 }
 
@@ -138,6 +137,13 @@ details > summary::-webkit-details-marker {
     animation: split-failsafe 0s 3s forwards;
   }
 }
+/* SplitText masks clip with overflow; pad them so ascenders and descenders (y, p, g) aren't cut. */
+.split-line-mask,
+.split-char-mask {
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+}
+
 @keyframes split-failsafe {
   to {
     visibility: visible;

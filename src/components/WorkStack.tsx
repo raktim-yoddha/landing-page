@@ -78,7 +78,7 @@ function Card({ item, i }: { item: Item; i: number }) {
       className="group/card flex h-[min(calc(100svh-112px),720px)] w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
       {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
-      <div className="grid h-[40%] shrink-0 place-items-center bg-black p-5 md:h-auto md:w-1/2 md:p-10">
+      <ShotLink item={item}>
         <Image
           src={item.image}
           alt={`${item.name} homepage screenshot`}
@@ -87,7 +87,7 @@ function Card({ item, i }: { item: Item; i: number }) {
           sizes="(min-width: 768px) 560px, 90vw"
           className="h-auto max-h-full w-auto max-w-full object-contain transition-transform duration-700 ease-out group-hover/card:scale-[1.03] md:max-w-[88%]"
         />
-      </div>
+      </ShotLink>
       <div className="flex min-h-0 flex-1 p-3 md:p-6">
         <div className="flex flex-1 flex-col border border-orange p-5 md:p-10">
           <h3 className="text-3xl uppercase leading-[0.95] tracking-tight md:text-4xl lg:text-5xl xl:text-6xl">{item.name}</h3>
@@ -117,5 +117,48 @@ function Card({ item, i }: { item: Item; i: number }) {
         </div>
       </div>
     </article>
+  );
+}
+
+/**
+ * The screenshot panel links to the live site. With a mouse, the pointer becomes a
+ * red "Visit site" circle that trails the cursor (position written straight to the
+ * element's transform, no React re-renders).
+ */
+function ShotLink({ item, children }: { item: Item; children: React.ReactNode }) {
+  const dot = useRef<HTMLSpanElement>(null);
+  const move = (e: React.PointerEvent<HTMLAnchorElement>) => {
+    if (e.pointerType !== "mouse" || !dot.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    dot.current.style.transform = `translate3d(${e.clientX - r.left}px, ${e.clientY - r.top}px, 0)`;
+  };
+  const toggle = (e: React.PointerEvent<HTMLAnchorElement>, on: boolean) => {
+    if (e.pointerType !== "mouse" || !dot.current) return;
+    if (on) move(e);
+    dot.current.dataset.on = on ? "true" : "false";
+  };
+  return (
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visit ${item.name} (opens in a new tab)`}
+      onPointerEnter={(e) => toggle(e, true)}
+      onPointerMove={move}
+      onPointerLeave={(e) => toggle(e, false)}
+      className="relative grid h-[40%] shrink-0 place-items-center overflow-hidden bg-black p-5 [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
+    >
+      {children}
+      <span
+        ref={dot}
+        aria-hidden
+        data-on="false"
+        className="pointer-events-none absolute left-0 top-0 -ml-12 -mt-12 hidden size-24 scale-50 place-items-center rounded-full bg-signal text-center text-sm font-medium leading-tight text-cream opacity-0 transition-[opacity,scale,transform] duration-200 ease-out data-[on=true]:scale-100 data-[on=true]:opacity-100 [@media(pointer:fine)]:grid"
+      >
+        Visit
+        <br />
+        site ↗
+      </span>
+    </a>
   );
 }

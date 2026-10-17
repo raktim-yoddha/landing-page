@@ -26,9 +26,9 @@ export const hero = {
   sub: "I'm Raktim. I build the website that brings people in, plus the chatbots and automations that reply, book and follow up for you.",
   cta: "Book a free 30-min call",
   stats: [
-    { value: 2, suffix: "+", label: "years building for clients" },
     { value: 10, suffix: "+", label: "projects shipped" },
     { value: 1000, suffix: "+", label: "people watch me code on YouTube" },
+    { value: 250, suffix: "+", label: "builders in my Discord" },
   ],
 };
 
