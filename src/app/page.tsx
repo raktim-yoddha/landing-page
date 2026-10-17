@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CalEmbed } from "@/components/CalEmbed";
 import { CommunityCards } from "@/components/CommunityCards";
 import { CtaButton } from "@/components/CtaButton";
@@ -54,7 +55,7 @@ export default function Home() {
         {/* Hero */}
         <section className="overflow-hidden pt-28 md:pt-40">
           <ScrollAway className="mx-auto max-w-[1200px] px-4 text-center">
-            <SplitReveal as="h1" onLoad className="text-[2.75rem] leading-[1] tracking-[-0.03em] md:text-[clamp(2rem,7vw,6.25rem)]">
+            <SplitReveal as="h1" onLoad className="text-[clamp(2.75rem,14vw,3.5rem)] leading-[0.98] tracking-[-0.03em] md:text-[clamp(2rem,7vw,6.25rem)]">
               <span className="block">{hero.lead}</span>
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
@@ -112,16 +113,13 @@ export default function Home() {
           </div>
           <WorkStack />
           <Reveal className="flex justify-center px-4 pb-16 md:pb-32">
-            <a
+            <Link
               href={work.more.url}
-              target="_blank"
-              rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 bg-black px-7 py-4 text-sm font-medium text-cream transition-colors hover:bg-signal md:text-base"
             >
               {work.more.label}
-              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
           </Reveal>
         </section>
 

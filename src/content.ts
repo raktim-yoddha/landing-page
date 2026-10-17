@@ -69,57 +69,62 @@ export const services = {
   ],
 };
 
+const workItems = [
+  {
+    name: "Glow with Nutrition",
+    tags: ["Landing page"],
+    body: "A landing page for a nutrition practice that sells evidence-based, personalised diet plans and consultations built around real-life health goals.",
+    image: "/work/glowwithnutrition.png",
+    size: [1906, 977],
+    url: "https://www.glowwithnutrition.fit/",
+    linkLabel: "Visit site",
+  },
+  {
+    name: "Hiveory",
+    tags: ["Landing page", "Desktop app"],
+    body: "A local-first desktop workspace where autonomous AI agents, recursive split panes and local chat share one window.",
+    image: "/work/hiveory.png",
+    size: [1911, 977],
+    url: "https://hiveory.vercel.app/",
+    linkLabel: "Visit site",
+  },
+  {
+    name: "TaskMaster",
+    tags: ["Desktop app"],
+    body: "A small floating productivity tool with goal widgets, focus timers and overlay states. The code is open on GitHub.",
+    image: "/work/taskmaster.png",
+    size: [1917, 1078],
+    url: "https://github.com/raktim-yoddha/taskmaster",
+    linkLabel: "View on GitHub",
+  },
+  {
+    name: "Skillshare",
+    tags: ["Web app", "AI platform"],
+    body: "A platform where engineers share the editor rules, MCP configs and agent workflows they run in production.",
+    image: "/work/skillshare.png",
+    size: [1906, 958],
+    url: "https://skillsharehq.vercel.app/",
+    linkLabel: "Visit site",
+  },
+  {
+    name: "Raktim Yoddha",
+    tags: ["Portfolio site"],
+    body: "My previous portfolio, with a full-screen portrait hero, service breakdowns, a project gallery and Cal.com booking.",
+    image: "/work/portfolio.png",
+    size: [1906, 977],
+    url: "https://raktimyoddha.vercel.app/",
+    linkLabel: "Visit site",
+  },
+];
+
 export const work = {
   lead: "Work that's",
   accent: "live right now",
-  more: { label: "More projects on GitHub", url: contact.github },
-  items: [
-    {
-      name: "Glow with Nutrition",
-      tags: ["Landing page"],
-      body: "A landing page for a nutrition practice that sells evidence-based, personalised diet plans and consultations built around real-life health goals.",
-      image: "/work/glowwithnutrition.png",
-      size: [1906, 977],
-      url: "https://www.glowwithnutrition.fit/",
-      linkLabel: "Visit site",
-    },
-    {
-      name: "Hiveory",
-      tags: ["Landing page", "Desktop app"],
-      body: "A local-first desktop workspace where autonomous AI agents, recursive split panes and local chat share one window.",
-      image: "/work/hiveory.png",
-      size: [1911, 977],
-      url: "https://hiveory.vercel.app/",
-      linkLabel: "Visit site",
-    },
-    {
-      name: "TaskMaster",
-      tags: ["Desktop app"],
-      body: "A small floating productivity tool with goal widgets, focus timers and overlay states. The code is open on GitHub.",
-      image: "/work/taskmaster.png",
-      size: [1917, 1078],
-      url: "https://github.com/raktim-yoddha/taskmaster",
-      linkLabel: "View on GitHub",
-    },
-    {
-      name: "Skillshare",
-      tags: ["Web app", "AI platform"],
-      body: "A platform where engineers share the editor rules, MCP configs and agent workflows they run in production.",
-      image: "/work/skillshare.png",
-      size: [1906, 958],
-      url: "https://skillsharehq.vercel.app/",
-      linkLabel: "Visit site",
-    },
-    {
-      name: "Raktim Yoddha",
-      tags: ["Portfolio site"],
-      body: "My previous portfolio, with a full-screen portrait hero, service breakdowns, a project gallery and Cal.com booking.",
-      image: "/work/portfolio.png",
-      size: [1906, 977],
-      url: "https://raktimyoddha.vercel.app/",
-      linkLabel: "Visit site",
-    },
-  ],
+  more: { label: "See all projects", url: "/work" },
+  items: workItems,
+  // New projects go here: they appear on /work only, not in the homepage slider.
+  // Same shape as `items` (name, tags, body, image in /public/work, size [w, h], url, linkLabel).
+  archive: [] as Array<(typeof workItems)[number]>,
 };
 
 // DUMMY reviews for layout only. The section renders in `npm run dev` and is hidden in

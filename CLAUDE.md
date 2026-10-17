@@ -11,3 +11,4 @@ Next.js 16 landing page for Raktim Yoddha's freelance business. Original build b
 - FAQ answers marked `// CONFIRM` in `content.ts` state business policy Raktim must confirm.
 - `siteUrl` in `content.ts` is the old domain; update when the new domain is live.
 - Motion budget: heavy effects (SplitText, scroll scrubs, clip reveals, counters, Lenis) run only at >=768px via `desktopMotion` in `src/components/Gsap.tsx`; phones get CSS fades and native scroll. Keep new effects behind that query.
+- Projects: `work.items` in `content.ts` feed the homepage slider (keep it at these 5); new projects go in `work.archive` and show only on `/work`.

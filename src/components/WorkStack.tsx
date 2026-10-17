@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import { work } from "@/content";
 import "./Gsap"; // registers ScrollTrigger
 
-type Item = (typeof work.items)[number];
+export type Item = (typeof work.items)[number];
 
 /**
  * Pinned stage (tablet and up). Each next card slides up from below while the current
@@ -78,7 +78,7 @@ function Card({ item, i }: { item: Item; i: number }) {
       className="group/card flex w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
       {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
-      <ShotLink item={item}>
+      <ShotLink item={item} className="p-5 md:h-auto md:w-1/2 md:p-10">
         <Image
           src={item.image}
           alt={`${item.name} homepage screenshot`}
@@ -127,7 +127,7 @@ function Card({ item, i }: { item: Item; i: number }) {
  * no easing, no React re-renders) and only fades in/out. The system pointer is
  * hidden only while the circle is showing.
  */
-function ShotLink({ item, children }: { item: Item; children: React.ReactNode }) {
+export function ShotLink({ item, children, className = "" }: { item: Item; children: React.ReactNode; className?: string }) {
   const dot = useRef<HTMLSpanElement>(null);
   const link = useRef<HTMLAnchorElement>(null);
   const last = useRef({ x: -1, y: -1 });
@@ -178,7 +178,7 @@ function ShotLink({ item, children }: { item: Item; children: React.ReactNode })
       onPointerEnter={(e) => show(e, true)}
       onPointerMove={move}
       onPointerLeave={(e) => show(e, false)}
-      className="relative grid shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] data-[cursor=dot]:cursor-none md:h-auto md:w-1/2 md:p-10"
+      className={`relative grid shrink-0 select-none place-items-center overflow-hidden bg-black [-webkit-user-drag:none] data-[cursor=dot]:cursor-none ${className}`}
     >
       {children}
       <span
