@@ -108,9 +108,9 @@ export default function Home() {
         <section id="work" className="bg-night pt-16 md:pt-32" aria-labelledby="work-title">
           <div className="px-4 text-center">
             <Heading id="work-title" lead={work.lead} accent={work.accent} className="text-cream" />
-            <Reveal as="span" delay={0.3} className="mt-4 block text-4xl text-orange">
-              <span aria-hidden className="inline-block md:animate-bounce">↓</span>
-            </Reveal>
+            <span aria-hidden className="mt-4 block text-4xl text-orange">
+              <span className="inline-block md:animate-bounce">↓</span>
+            </span>
           </div>
           <WorkStack />
           <VisitCursor />
