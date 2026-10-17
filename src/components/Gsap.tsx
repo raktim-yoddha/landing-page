@@ -4,38 +4,33 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { ReactLenis, type LenisRef } from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 import { useReducedMotion } from "motion/react";
-import { useEffect, useRef, type ElementType, type ReactNode } from "react";
+import { useRef, type ElementType, type ReactNode } from "react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const motionOk = "(prefers-reduced-motion: no-preference)";
 
-/** Lenis smooth scroll driven by GSAP's ticker so ScrollTrigger and Lenis share one clock. */
+/**
+ * Lenis smooth scroll. Lenis runs its own rAF (its instance only exists after
+ * ReactLenis re-renders, so driving it from a parent effect left the page unscrollable);
+ * every Lenis scroll tick updates ScrollTrigger.
+ */
 export function SmoothScroll({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<LenisRef>(null);
   const reduce = useReducedMotion();
-
-  useEffect(() => {
-    if (reduce) return;
-    const lenis = lenisRef.current?.lenis;
-    const tick = (t: number) => lenis?.raf(t * 1000);
-    lenis?.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-    return () => {
-      lenis?.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(tick);
-    };
-  }, [reduce]);
-
   if (reduce) return <>{children}</>;
   return (
-    <ReactLenis root ref={lenisRef} options={{ lerp: 0.1, anchors: true, autoRaf: false }}>
+    <ReactLenis root options={{ lerp: 0.1, anchors: true }}>
+      <ScrollTriggerSync />
       {children}
     </ReactLenis>
   );
+}
+
+function ScrollTriggerSync() {
+  useLenis(ScrollTrigger.update);
+  return null;
 }
 
 /**
