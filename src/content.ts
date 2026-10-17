@@ -138,17 +138,41 @@ export const community = {
   accent: "in public",
   body: "I stream full builds on YouTube and Twitch, so you can see how I work before we ever talk.",
   channels: [
-    { name: "YouTube", detail: "Live coding sessions, full builds and tutorials.", count: "1,000+ subscribers", url: contact.youtube, cta: "Subscribe" },
-    { name: "Discord", detail: "Builders sharing progress, swapping tips and getting direct help.", count: "250+ members", url: contact.discord, cta: "Join the server" },
-    { name: "Twitch", detail: "Live streams where you can ask questions in chat and code along.", count: "Live streams", url: contact.twitch, cta: "Follow" },
+    {
+      name: "Watch on YouTube",
+      detail: "Live coding sessions, full builds and tutorials. Subscribe and follow along as projects ship.",
+      count: "1,000+ subscribers",
+      url: contact.youtube,
+      cta: "Subscribe on YouTube",
+      tone: "rust",
+      motif: "play",
+    },
+    {
+      name: "Join the Discord",
+      detail: "Hang out with other builders, share your progress, swap tips and get direct support.",
+      count: "250+ members",
+      url: contact.discord,
+      cta: "Join the server",
+      tone: "ink",
+      motif: "chat",
+    },
+    {
+      name: "Follow on Twitch",
+      detail: "Catch the live streams, ask questions in chat and code along in real time.",
+      count: "Live streams",
+      url: contact.twitch,
+      cta: "Follow on Twitch",
+      tone: "orange",
+      motif: "live",
+    },
   ],
   resources: {
-    title: "Free resources from the streams",
-    items: ["Master Next.js with AI", "Notion CRM Kit", "The Automation Playbook", "Local SEO Checklist"],
+    title: "Grab the free resources",
+    body: "Templates, playbooks and workshops from my streams. All free.",
     url: "/resources",
-    cta: "Browse the free resources",
+    cta: "Open free resources",
   },
-};
+} as const;
 
 // Answers marked CONFIRM state business policy Raktim should check before launch.
 export const faq = {

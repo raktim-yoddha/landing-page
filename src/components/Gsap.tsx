@@ -196,3 +196,36 @@ export function ScrollAway({ children, className }: { children: ReactNode; class
     </div>
   );
 }
+
+/**
+ * Children unmask one after another (first, second, third…) when the group enters.
+ * Desktop only; on phones the items simply sit in place.
+ */
+export function Sequence({ children, className }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(desktopMotion, () => {
+        gsap.from(gsap.utils.toArray<HTMLElement>(":scope > *", ref.current), {
+          clipPath: "inset(100% 0% 0% 0%)",
+          y: 60,
+          duration: 1,
+          ease: "expo.out",
+          stagger: 0.18,
+          clearProps: "clipPath,transform",
+          scrollTrigger: { trigger: ref.current, start: "top 80%", once: true },
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: ref },
+  );
+
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
+}

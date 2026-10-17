@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { CalEmbed } from "@/components/CalEmbed";
+import { CommunityCards } from "@/components/CommunityCards";
 import { CtaButton } from "@/components/CtaButton";
 import { ClipReveal, Counter, ScrollAway, ScrubX, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
@@ -135,49 +135,14 @@ export default function Home() {
         )}
 
         {/* Community */}
-        <section id="community" className="mx-auto grid max-w-[1280px] gap-12 px-4 py-24 md:grid-cols-[1fr_1.4fr] md:gap-20 md:px-8 md:py-40" aria-labelledby="community-title">
-          <div>
+        <section id="community" className="mx-auto max-w-[1280px] px-4 py-24 md:px-8 md:py-40" aria-labelledby="community-title">
+          <div className="text-center">
             <Heading id="community-title" lead={community.lead} accent={community.accent} />
-            <Reveal as="p" delay={0.2} className="mt-6 max-w-[36ch] font-serif text-2xl italic leading-snug">
+            <Reveal as="p" delay={0.2} className="mx-auto mt-5 max-w-[40ch] text-balance font-serif text-xl italic leading-snug md:text-2xl">
               {community.body}
             </Reveal>
           </div>
-          <div>
-            <ul className="divide-y divide-ink/15 border-y border-ink/15">
-              {community.channels.map((c, i) => (
-                <Reveal as="li" key={c.name} delay={i * 0.08}>
-                  <a href={c.url} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-6 py-6 md:py-8">
-                    <div>
-                      <p className="text-3xl font-medium tracking-tight transition-colors group-hover:text-signal md:text-4xl">{c.name}</p>
-                      <p className="mt-1 text-base text-ink/80">{c.detail}</p>
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <p className="font-serif text-xl italic text-rust">{c.count}</p>
-                      <p className="mt-1 text-sm">
-                        {c.cta} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-                      </p>
-                    </div>
-                  </a>
-                </Reveal>
-              ))}
-            </ul>
-            <ClipReveal className="mt-8">
-              <Link href={community.resources.url} className="group block bg-beige p-6 transition-colors hover:bg-orange md:p-8">
-                <span className="flex items-start justify-between gap-6">
-                  <span className="text-xl font-medium md:text-2xl">{community.resources.title}</span>
-                  <span aria-hidden className="text-3xl text-signal transition-transform duration-300 group-hover:translate-x-1 group-hover:text-black">→</span>
-                </span>
-                <span className="mt-4 grid gap-2 font-serif text-lg italic sm:grid-cols-2">
-                  {community.resources.items.map((r) => (
-                    <span key={r}>{r}</span>
-                  ))}
-                </span>
-                <span className="mt-6 inline-block text-sm font-medium text-signal underline underline-offset-4 group-hover:text-black">
-                  {community.resources.cta}
-                </span>
-              </Link>
-            </ClipReveal>
-          </div>
+          <CommunityCards />
         </section>
 
         {/* FAQ */}
