@@ -31,13 +31,13 @@ export default function WorkPage() {
         </div>
       </header>
 
-      <main className="min-h-svh bg-orange pb-20 pt-28 md:pb-32 md:pt-40">
+      <main className="min-h-svh bg-night pb-20 pt-28 md:pb-32 md:pt-40">
         <div className="mx-auto max-w-[1280px] px-4 md:px-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <SplitReveal as="h1" onLoad className="text-[clamp(3rem,15vw,4rem)] leading-[0.95] tracking-tight text-black md:text-8xl">
+            <SplitReveal as="h1" onLoad className="text-[clamp(3rem,15vw,4rem)] leading-[0.95] tracking-tight text-cream md:text-8xl">
               All <em className="font-serif font-normal">projects</em>
             </SplitReveal>
-            <Reveal as="p" delay={0.2} className="max-w-[34ch] font-serif text-xl italic leading-snug text-black md:text-right md:text-2xl">
+            <Reveal as="p" delay={0.2} className="max-w-[34ch] font-serif text-xl italic leading-snug text-cream/80 md:text-right md:text-2xl">
               {projects.length} things I designed and built. Every one is live or open source.
             </Reveal>
           </div>
@@ -50,7 +50,7 @@ export default function WorkPage() {
           <VisitCursor />
 
           <Reveal className="mt-16 flex flex-col items-center gap-5 text-center md:mt-24">
-            <p className="text-3xl tracking-tight text-black md:text-5xl">
+            <p className="text-3xl tracking-tight text-cream md:text-5xl">
               Want yours <em className="font-serif font-normal">on this page?</em>
             </p>
             <CtaButton href="/#book">Book a free call</CtaButton>
@@ -65,7 +65,7 @@ export default function WorkPage() {
 function ProjectTile({ p }: { p: Item }) {
   return (
     <article className="group/card flex flex-col bg-beige">
-      <ShotLink item={p} className="p-5 pb-8 pr-8 md:p-10 md:pb-12 md:pr-12">
+      <ShotLink item={p} className="p-5 md:p-10">
         <BrowserFrame item={p} sizes="(min-width: 768px) 560px, 90vw" />
       </ShotLink>
       <div className="flex flex-1 p-3 md:p-5">

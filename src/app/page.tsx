@@ -105,10 +105,10 @@ export default function Home() {
         </section>
 
         {/* Work: pinned cards that slide over each other */}
-        <section id="work" className="bg-orange pt-16 md:pt-32" aria-labelledby="work-title">
+        <section id="work" className="bg-night pt-16 md:pt-32" aria-labelledby="work-title">
           <div className="px-4 text-center">
-            <Heading id="work-title" lead={work.lead} accent={work.accent} className="text-black" />
-            <Reveal as="span" delay={0.3} className="mt-4 block text-4xl text-black">
+            <Heading id="work-title" lead={work.lead} accent={work.accent} className="text-cream" />
+            <Reveal as="span" delay={0.3} className="mt-4 block text-4xl text-orange">
               <span aria-hidden className="inline-block md:animate-bounce">↓</span>
             </Reveal>
           </div>
@@ -117,7 +117,7 @@ export default function Home() {
           <Reveal className="flex justify-center px-4 pb-16 md:pb-32">
             <Link
               href={work.more.url}
-              className="group inline-flex items-center gap-3 bg-black px-7 py-4 text-sm font-medium text-cream transition-colors hover:bg-signal md:text-base"
+              className="group inline-flex items-center gap-3 bg-cream px-7 py-4 text-sm font-medium text-ink transition-colors hover:bg-signal hover:text-cream md:text-base"
             >
               {work.more.label}
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>

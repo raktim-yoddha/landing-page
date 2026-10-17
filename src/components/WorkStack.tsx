@@ -77,7 +77,7 @@ function Card({ item, i }: { item: Item; i: number }) {
       style={{ zIndex: i + 1 }}
       className="group/card flex w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
-      <ShotLink item={item} className="p-5 pb-8 pr-8 md:h-auto md:w-1/2 md:p-10 md:pb-12 md:pr-12">
+      <ShotLink item={item} className="p-5 md:h-auto md:w-1/2 md:p-10">
         <BrowserFrame item={item} sizes="(min-width: 768px) 560px, 90vw" className="md:max-w-[90%]" />
       </ShotLink>
       <div className="flex min-h-0 flex-1 p-3 md:p-6">
@@ -125,7 +125,7 @@ export function ShotLink({ item, children, className = "" }: { item: Item; child
       aria-label={`Visit ${item.name} (opens in a new tab)`}
       draggable={false}
       data-visit=""
-      className={`relative grid shrink-0 select-none place-items-center overflow-hidden bg-sand [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none ${className}`}
+      className={`relative grid shrink-0 select-none place-items-center overflow-hidden bg-beige [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none ${className}`}
     >
       {children}
     </a>
@@ -134,7 +134,7 @@ export function ShotLink({ item, children, className = "" }: { item: Item; child
 
 /**
  * Screenshot shown as a browser window: charcoal title bar with the real address,
- * and a soft clay block offset behind it. Dark and light sites both read as "a website
+ * resting on the card with a soft shadow. Dark and light sites both read as "a website
  * in a window" instead of a bare rectangle on the card.
  */
 export function BrowserFrame({ item, sizes, className = "" }: { item: Item; sizes: string; className?: string }) {
@@ -142,12 +142,8 @@ export function BrowserFrame({ item, sizes, className = "" }: { item: Item; size
   const address = (u.host.replace(/^www\./, "") + u.pathname).replace(/\/$/, "");
   return (
     <div className={`relative w-full ${className}`}>
-      <div
-        aria-hidden
-        className="absolute inset-0 translate-x-3 translate-y-3 rounded-[10px] bg-clay transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
-      />
       {/* macOS Safari-style window: light title bar, real traffic-light colours, lock + domain. */}
-      <div className="relative overflow-hidden rounded-[10px] bg-[#f6f5f3] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_22px_44px_-24px_rgba(60,30,15,0.45)] transition-transform duration-500 ease-out group-hover/card:-translate-x-0.5 group-hover/card:-translate-y-0.5">
+      <div className="relative overflow-hidden rounded-[10px] bg-[#f6f5f3] shadow-[0_0_0_1px_rgba(0,0,0,0.07),0_2px_6px_rgba(60,30,15,0.06),0_28px_50px_-22px_rgba(60,30,15,0.38)] transition-[transform,box-shadow] duration-500 ease-out group-hover/card:-translate-y-1">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-black/[0.07] px-3 py-2 md:px-3.5 md:py-2.5">
           <span aria-hidden className="flex gap-[7px]">
             <span className="size-[10px] rounded-full bg-[#ff5f57] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.18)] md:size-3" />
