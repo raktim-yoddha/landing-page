@@ -55,12 +55,12 @@ export default function Home() {
         {/* Hero */}
         <section className="overflow-hidden pt-28 md:pt-40">
           <ScrollAway className="mx-auto max-w-[1200px] px-4 text-center">
-            <SplitReveal as="h1" onLoad className="text-[clamp(2.75rem,14vw,3.5rem)] leading-[0.98] tracking-[-0.03em] md:text-[clamp(2rem,7vw,6.25rem)]">
+            <SplitReveal as="h1" onLoad className="text-[clamp(2.5rem,11vw,3.25rem)] leading-[0.98] tracking-[-0.03em] md:text-[clamp(2rem,7vw,6.25rem)]">
               <span className="block">{hero.lead}</span>
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
             {/* Hero entrance is pure CSS so it starts on first paint, without waiting for JS (fast LCP). */}
-            <p className="hero-in mx-auto mt-6 max-w-[36ch] text-balance font-serif text-xl italic leading-snug [animation-delay:0.16s] md:text-2xl">
+            <p className="hero-in mx-auto mt-6 max-w-[52ch] text-balance font-serif text-xl italic leading-snug [animation-delay:0.16s] md:mt-8 md:text-2xl">
               {hero.sub}
             </p>
             <div className="hero-in mt-8 [animation-delay:0.24s]">

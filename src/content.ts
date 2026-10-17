@@ -20,10 +20,10 @@ export const meta = {
 };
 
 export const hero = {
-  // Rendered as: "Win customers" + italic "while you sleep."
-  lead: "Win customers",
-  accent: "while you sleep.",
-  sub: "I'm Raktim. I build the website that brings people in, plus the chatbots and automations that reply, book and follow up for you.",
+  // Rendered as: "Win more customers," + italic "even while you sleep."
+  lead: "Win more customers,",
+  accent: "even while you sleep.",
+  sub: "I'm Raktim, a designer and developer from Gujarat. I build websites that turn visitors into enquiries, plus the AI chatbots and automations that reply, book calls and follow up for you around the clock.",
   cta: "Book a free 30-min call",
   stats: [
     { value: 10, suffix: "+", label: "projects shipped" },

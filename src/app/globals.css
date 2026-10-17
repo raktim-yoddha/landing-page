@@ -44,13 +44,9 @@ h3 {
   text-wrap: balance;
 }
 
-/* No lone last words: every paragraph wraps evenly. */
-p,
-li,
-dt,
-blockquote,
-figcaption,
-summary {
+/* No lone last words: every paragraph wraps evenly. Elements that ask for
+   `text-balance` keep it (Tailwind emits these globals unlayered, so they'd win). */
+:is(p, li, dt, blockquote, figcaption, summary):not(.text-balance) {
   text-wrap: pretty;
 }
 
