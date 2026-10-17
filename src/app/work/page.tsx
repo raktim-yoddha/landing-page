@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CtaButton } from "@/components/CtaButton";
 import { Sequence, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
+import { VisitCursor } from "@/components/VisitCursor";
 import { ShotLink, type Item } from "@/components/WorkStack";
 import { work } from "@/content";
 
@@ -47,6 +48,7 @@ export default function WorkPage() {
               <ProjectTile key={p.name} p={p} />
             ))}
           </Sequence>
+          <VisitCursor />
 
           <Reveal className="mt-16 flex flex-col items-center gap-5 text-center md:mt-24">
             <p className="text-3xl tracking-tight text-black md:text-5xl">

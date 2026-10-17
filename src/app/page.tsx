@@ -5,6 +5,7 @@ import { CtaButton } from "@/components/CtaButton";
 import { ClipReveal, Counter, ScrollAway, ScrubX, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
 import { Services } from "@/components/Services";
+import { VisitCursor } from "@/components/VisitCursor";
 import { WorkStack } from "@/components/WorkStack";
 import { booking, bookingUrl, community, contact, faq, hero, reviews, services, work } from "@/content";
 
@@ -60,7 +61,7 @@ export default function Home() {
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
             {/* Hero entrance is pure CSS so it starts on first paint, without waiting for JS (fast LCP). */}
-            <p className="hero-in mx-auto mt-6 max-w-[52ch] text-balance font-serif text-xl italic leading-snug [animation-delay:0.16s] md:mt-8 md:text-2xl">
+            <p className="hero-in mx-auto mt-6 max-w-[38ch] text-balance font-serif md:max-w-[64ch] text-xl italic leading-snug [animation-delay:0.16s] md:mt-8 md:text-2xl">
               {hero.sub}
             </p>
             <div className="hero-in mt-8 [animation-delay:0.24s]">
@@ -112,6 +113,7 @@ export default function Home() {
             </Reveal>
           </div>
           <WorkStack />
+          <VisitCursor />
           <Reveal className="flex justify-center px-4 pb-16 md:pb-32">
             <Link
               href={work.more.url}
