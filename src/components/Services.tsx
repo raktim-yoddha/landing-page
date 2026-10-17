@@ -25,20 +25,20 @@ export function Services() {
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", el);
       const dots = gsap.utils.toArray<HTMLElement>("[data-dot]", el);
       const labels = gsap.utils.toArray<HTMLElement>("[data-label]", el);
-      const track = el.querySelector<HTMLElement>("[data-track]")!;
       const fill = el.querySelector<HTMLElement>("[data-fill]")!;
-      const tip = el.querySelector<HTMLElement>("[data-tip]")!;
+      // The tip sits at the top of a rail exactly as tall as the track; moving the rail by
+      // yPercent (a share of its own height) puts the tip at the right spot without measuring.
+      const rail = el.querySelector<HTMLElement>("[data-rail]")!;
 
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
         const state = { p: 0 };
-        let trackH = 0;
         let centers: number[] = [];
 
         const draw = () => {
           gsap.set(fill, { scaleY: state.p });
-          gsap.set(tip, { y: state.p * trackH });
+          gsap.set(rail, { yPercent: state.p * 100 });
           const active = Math.round(state.p * (n - 1));
           dots.forEach((d, i) => (d.dataset.on = String(state.p >= i / (n - 1) - 0.002)));
           labels.forEach((l, i) => (l.dataset.active = String(i === active)));
@@ -46,7 +46,6 @@ export function Services() {
         const to = gsap.quickTo(state, "p", { duration: reduce ? 0 : 0.45, ease: "power3.out", onUpdate: draw });
 
         const measure = () => {
-          trackH = track.getBoundingClientRect().height;
           centers = panels.map((p) => {
             const r = p.getBoundingClientRect();
             return r.top + window.scrollY + r.height / 2;
@@ -83,15 +82,13 @@ export function Services() {
     <div ref={root} className="mx-auto grid max-w-[1280px] gap-10 px-4 md:grid-cols-[minmax(250px,1fr)_2fr] md:gap-16 md:px-8">
       <div className="hidden md:block">
         <div className="sticky top-36">
-          <ol className="relative space-y-6 pl-8">
+          <ol className="relative flex flex-col gap-6 pl-8">
             {/* Line runs from the first dot centre to the last (rows are a fixed 28px). */}
-            <span aria-hidden data-track className="absolute bottom-[14px] left-[5px] top-[14px] w-px bg-ink/15" />
+            <span aria-hidden className="absolute bottom-[14px] left-[5px] top-[14px] w-px bg-ink/15" />
             <span aria-hidden data-fill className="absolute bottom-[14px] left-[5px] top-[14px] w-px origin-top scale-y-0 bg-ink" />
-            <span
-              aria-hidden
-              data-tip
-              className="absolute left-[5.5px] top-[14px] z-10 -ml-[7px] -mt-[7px] size-[14px] rounded-full bg-flame ring-4 ring-cream"
-            />
+            <span aria-hidden data-rail className="pointer-events-none absolute bottom-[14px] left-[5.5px] top-[14px] z-10 w-0">
+              <span className="absolute left-0 top-0 -ml-[7px] -mt-[7px] size-[14px] rounded-full bg-flame ring-4 ring-cream" />
+            </span>
             {services.items.map((s, i) => (
               <li key={s.name} className="relative">
                 <span
