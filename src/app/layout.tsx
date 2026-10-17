@@ -11,10 +11,8 @@ const sans = localFont({
   variable: "--font-inter-tight",
 });
 const serif = localFont({
-  src: [
-    { path: "../fonts/instrument-serif-latin-400-normal.woff2", style: "normal" },
-    { path: "../fonts/instrument-serif-latin-400-italic.woff2", style: "italic" },
-  ],
+  // Only the italic cut is ever used on the page.
+  src: [{ path: "../fonts/instrument-serif-latin-400-italic.woff2", style: "italic" }],
   weight: "400",
   variable: "--font-instrument-serif",
 });
@@ -81,7 +79,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Lets CSS hide split text only when JS will reveal it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll />
+        {children}
       </body>
     </html>
   );

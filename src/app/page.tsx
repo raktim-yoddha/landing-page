@@ -52,19 +52,20 @@ export default function Home() {
 
       <main id="main">
         {/* Hero */}
-        <section className="overflow-hidden pt-32 md:pt-40">
+        <section className="overflow-hidden pt-32 max-md:flex max-md:min-h-svh max-md:flex-col max-md:justify-center max-md:pb-10 max-md:pt-24 md:pt-40">
           <ScrollAway className="mx-auto max-w-[1200px] px-4 text-center">
             <SplitReveal as="h1" onLoad className="text-[clamp(2rem,7vw,6.25rem)] leading-[1] tracking-[-0.03em]">
               <span className="block">{hero.lead}</span>
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
-            <Reveal as="p" delay={0.16} className="mx-auto mt-6 max-w-[36ch] text-balance font-serif text-xl italic leading-snug md:text-2xl">
+            {/* Hero entrance is pure CSS so it starts on first paint, without waiting for JS (fast LCP). */}
+            <p className="hero-in mx-auto mt-6 max-w-[36ch] text-balance font-serif text-xl italic leading-snug [animation-delay:0.16s] md:text-2xl">
               {hero.sub}
-            </Reveal>
-            <Reveal delay={0.24} className="mt-8">
+            </p>
+            <div className="hero-in mt-8 [animation-delay:0.24s]">
               <CtaButton href={bookingUrl}>{hero.cta}</CtaButton>
-            </Reveal>
-            <Reveal delay={0.32}>
+            </div>
+            <div className="hero-in [animation-delay:0.32s]">
               <dl className="mx-auto mt-12 grid max-w-[760px] grid-cols-3 gap-4">
                 {hero.stats.map((s) => (
                   <div key={s.label} className="flex flex-col-reverse items-center gap-1">
@@ -75,7 +76,7 @@ export default function Home() {
                   </div>
                 ))}
               </dl>
-            </Reveal>
+            </div>
           </ScrollAway>
 
         </section>
@@ -83,7 +84,7 @@ export default function Home() {
         {/* Giant wordmark */}
         <div aria-hidden className="mt-20 overflow-hidden md:mt-28">
           <ScrubX distance={-20}>
-            <div className="flex w-max animate-marquee [--marquee-duration:30s]">
+            <div className="flex w-max animate-marquee [--marquee-duration:30s] max-md:animate-none">
               {Array.from({ length: 4 }, (_, i) => (
                 <span key={i} className="outline-text whitespace-nowrap pr-[0.3em] text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] md:text-[15vw]">
                   RAKTIM YODDHA
@@ -233,8 +234,9 @@ export default function Home() {
               <li><a href={contact.github} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a></li>
             </ul>
           </div>
-          <div aria-hidden>
-            <SplitReveal as="p" type="chars" className="mt-16 whitespace-nowrap text-[12.4vw] font-semibold leading-[0.8] tracking-[-0.05em] md:mt-24 2xl:text-[12.8vw]">
+          {/* Sized in container units so the name spans exactly the footer's content width. */}
+          <div aria-hidden className="@container mt-16 md:mt-24">
+            <SplitReveal as="p" type="chars" className="whitespace-nowrap text-[13.4cqw] font-semibold leading-[0.8] tracking-[-0.05em]">
               RAKTIM YODDHA
             </SplitReveal>
           </div>

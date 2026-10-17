@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { bookingUrl, services } from "@/content";
 import { CtaButton } from "./CtaButton";
@@ -11,7 +10,6 @@ import { Reveal } from "./Motion";
 export function Services() {
   const [active, setActive] = useState(0);
   const panels = useRef<(HTMLElement | null)[]>([]);
-  const reduce = useReducedMotion();
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -30,12 +28,10 @@ export function Services() {
         <div className="sticky top-36">
           <ol className="relative space-y-6 pl-8">
             <span aria-hidden className="absolute bottom-2 left-[5px] top-2 w-px bg-ink/20" />
-            <motion.span
+            <span
               aria-hidden
-              className="absolute left-[5px] top-2 w-px origin-top bg-ink"
-              style={{ height: "calc(100% - 16px)" }}
-              animate={{ scaleY: active / (services.items.length - 1) }}
-              transition={{ duration: reduce ? 0 : 0.5 }}
+              className="absolute left-[5px] top-2 w-px origin-top bg-ink transition-transform duration-500 motion-reduce:transition-none"
+              style={{ height: "calc(100% - 16px)", transform: `scaleY(${active / (services.items.length - 1)})` }}
             />
             {services.items.map((s, i) => (
               <li key={s.name} className="relative">

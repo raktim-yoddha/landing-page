@@ -1,31 +1,44 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+// One shared observer for every Reveal on the page. CSS (globals.css) does the motion.
+let observer: IntersectionObserver | undefined;
+function observe(el: Element) {
+  observer ??= new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("is-in");
+        observer!.unobserve(e.target);
+      }
+    },
+    { rootMargin: "0px 0px -10% 0px" },
+  );
+  observer.observe(el);
+  return () => observer!.unobserve(el);
+}
 
 /** Rises and fades in once when scrolled into view. `delay` in seconds staggers siblings. */
 export function Reveal({
   children,
   delay = 0,
   className,
-  as = "div",
+  as: Tag = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
   as?: "div" | "li" | "p" | "span";
 }) {
-  const reduce = useReducedMotion();
-  const Tag = motion[as];
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => observe(ref.current!), []);
   return (
     <Tag
+      ref={ref as React.Ref<never>}
+      data-reveal=""
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.7, ease, delay }}
+      style={delay ? { transitionDelay: `${delay}s` } : undefined}
     >
       {children}
     </Tag>

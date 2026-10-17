@@ -75,7 +75,7 @@ function Card({ item, i }: { item: Item; i: number }) {
     <article
       data-card
       style={{ zIndex: i + 1 }}
-      className="group/card flex h-[min(calc(100svh-112px),720px)] w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige will-change-transform group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
+      className="group/card flex h-[min(calc(100svh-112px),720px)] w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
       {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
       <div className="grid h-[40%] shrink-0 place-items-center bg-black p-5 md:h-auto md:w-1/2 md:p-10">

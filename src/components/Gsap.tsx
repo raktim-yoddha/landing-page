@@ -4,38 +4,37 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { ReactLenis, useLenis } from "lenis/react";
-import { useReducedMotion } from "motion/react";
-import { useRef, type ElementType, type ReactNode } from "react";
+import Lenis from "lenis";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
-
-const motionOk = "(prefers-reduced-motion: no-preference)";
+// Phones resize the viewport as the address bar hides; don't recalc every trigger for that.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /**
- * Lenis smooth scroll. Lenis runs its own rAF (its instance only exists after
- * ReactLenis re-renders, so driving it from a parent effect left the page unscrollable);
- * every Lenis scroll tick updates ScrollTrigger.
+ * Heavy effects (text splitting, scroll scrubs, clip reveals, counters) run only on
+ * tablets and up. Phones get plain fades and native scrolling, which is faster and
+ * uses far less memory.
  */
-export function SmoothScroll({ children }: { children: ReactNode }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <>{children}</>;
-  return (
-    <ReactLenis root options={{ lerp: 0.1, anchors: true }}>
-      <ScrollTriggerSync />
-      {children}
-    </ReactLenis>
-  );
-}
+const desktopMotion = "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
 
-function ScrollTriggerSync() {
-  useLenis(ScrollTrigger.update);
+/**
+ * Lenis smooth scroll on mouse/trackpad devices only; touch keeps native scrolling
+ * (and no always-on rAF loop). Every Lenis tick updates ScrollTrigger.
+ */
+export function SmoothScroll() {
+  useEffect(() => {
+    if (!matchMedia(`${desktopMotion} and (pointer: fine)`).matches) return;
+    const lenis = new Lenis({ lerp: 0.1, anchors: true, autoRaf: true });
+    lenis.on("scroll", ScrollTrigger.update);
+    return () => lenis.destroy();
+  }, []);
   return null;
 }
 
 /**
  * Masked line (or char) reveal. Elements carry `data-split`, which CSS hides until
- * the split is ready so nothing flashes; reduced motion and no-JS show text as is.
+ * the split is ready so nothing flashes; phones, reduced motion and no-JS show text as is.
  */
 export function SplitReveal({
   as: Tag = "div",
@@ -58,7 +57,7 @@ export function SplitReveal({
     () => {
       const el = ref.current!;
       const mm = gsap.matchMedia();
-      mm.add(motionOk, () => {
+      mm.add(desktopMotion, () => {
         SplitText.create(el, {
           type: type === "chars" ? "chars,lines" : "lines",
           mask: type,
@@ -96,7 +95,7 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
   useGSAP(() => {
     const el = ref.current!;
     const mm = gsap.matchMedia();
-    mm.add(motionOk, () => {
+    mm.add(desktopMotion, () => {
       const obj = { n: 0 };
       el.textContent = fmt(0);
       gsap.set(el, { visibility: "visible" });
@@ -127,7 +126,7 @@ export function ScrubX({ children, distance = -30, className }: { children: Reac
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
-    mm.add(motionOk, () => {
+    mm.add(desktopMotion, () => {
       gsap.fromTo(
         ref.current,
         { xPercent: 0 },
@@ -154,7 +153,7 @@ export function ClipReveal({ children, className }: { children: ReactNode; class
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
-    mm.add(motionOk, () => {
+    mm.add(desktopMotion, () => {
       gsap.from(ref.current, {
         clipPath: "inset(100% 0% 0% 0%)",
         y: 40,
@@ -180,7 +179,7 @@ export function ScrollAway({ children, className }: { children: ReactNode; class
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
-    mm.add(motionOk, () => {
+    mm.add(desktopMotion, () => {
       gsap.to(ref.current, {
         yPercent: -18,
         opacity: 0.15,

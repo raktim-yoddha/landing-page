@@ -10,3 +10,4 @@ Next.js 16 landing page for Raktim Yoddha's freelance business. Original build b
 - Reviews are dummy placeholders (`reviews.placeholder: true`) and render only in `npm run dev`. Never ship fake reviews; remove the flag only with real, permitted quotes.
 - FAQ answers marked `// CONFIRM` in `content.ts` state business policy Raktim must confirm.
 - `siteUrl` in `content.ts` is the old domain; update when the new domain is live.
+- Motion budget: heavy effects (SplitText, scroll scrubs, clip reveals, counters, Lenis) run only at >=768px via `desktopMotion` in `src/components/Gsap.tsx`; phones get CSS fades and native scroll. Keep new effects behind that query.
