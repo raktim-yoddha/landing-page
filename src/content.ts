@@ -23,7 +23,7 @@ export const hero = {
   // Rendered as: "Win more customers," + italic "even while you sleep."
   lead: "Win more customers,",
   accent: "even while you sleep.",
-  sub: "I'm Raktim, a designer and developer. I build websites that bring in enquiries, plus the AI chatbots and automations that reply and book calls for you.",
+  sub: "I'm Raktim. I build the website that brings people in, then the AI assistant that replies at 2 a.m. and books the call straight into your calendar.",
   cta: "Book a free 30-min call",
   stats: [
     { value: 10, suffix: "+", label: "projects shipped" },

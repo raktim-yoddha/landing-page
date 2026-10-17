@@ -134,7 +134,7 @@ export function ShotLink({ item, children, className = "" }: { item: Item; child
 
 /**
  * Screenshot shown as a browser window: charcoal title bar with the real address,
- * and a rust block offset behind it. Dark and light sites both read as "a website
+ * and a soft clay block offset behind it. Dark and light sites both read as "a website
  * in a window" instead of a bare rectangle on the card.
  */
 export function BrowserFrame({ item, sizes, className = "" }: { item: Item; sizes: string; className?: string }) {
@@ -144,7 +144,7 @@ export function BrowserFrame({ item, sizes, className = "" }: { item: Item; size
     <div className={`relative w-full ${className}`}>
       <div
         aria-hidden
-        className="absolute inset-0 translate-x-3 translate-y-3 bg-rust transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
+        className="absolute inset-0 translate-x-3 translate-y-3 bg-clay transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
       />
       <div className="relative overflow-hidden bg-ink transition-transform duration-500 ease-out group-hover/card:-translate-x-0.5 group-hover/card:-translate-y-0.5">
         <div className="flex items-center gap-3 px-3 py-2 md:px-4 md:py-2.5">
