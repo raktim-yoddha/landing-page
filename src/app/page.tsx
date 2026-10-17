@@ -111,6 +111,18 @@ export default function Home() {
             </Reveal>
           </div>
           <WorkStack />
+          <Reveal className="flex justify-center px-4 pb-24 md:pb-32">
+            <a
+              href={work.more.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 bg-black px-7 py-4 text-sm font-medium text-cream transition-colors hover:bg-signal md:text-base"
+            >
+              {work.more.label}
+              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+          </Reveal>
         </section>
 
         {showReviews && (

@@ -85,6 +85,7 @@ function Card({ item, i }: { item: Item; i: number }) {
           width={item.size[0]}
           height={item.size[1]}
           sizes="(min-width: 768px) 560px, 90vw"
+          draggable={false}
           className="h-auto max-h-full w-auto max-w-full object-contain transition-transform duration-700 ease-out group-hover/card:scale-[1.03] md:max-w-[88%]"
         />
       </ShotLink>
@@ -143,21 +144,23 @@ function ShotLink({ item, children }: { item: Item; children: React.ReactNode })
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit ${item.name} (opens in a new tab)`}
+      draggable={false}
       onPointerEnter={(e) => toggle(e, true)}
       onPointerMove={move}
       onPointerLeave={(e) => toggle(e, false)}
-      className="relative grid h-[40%] shrink-0 place-items-center overflow-hidden bg-black p-5 [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
+      className="relative grid h-[40%] shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
     >
       {children}
       <span
         ref={dot}
         aria-hidden
         data-on="false"
-        className="pointer-events-none absolute left-0 top-0 -ml-12 -mt-12 hidden size-24 scale-50 place-items-center rounded-full bg-signal text-center text-sm font-medium leading-tight text-cream opacity-0 transition-[opacity,scale,transform] duration-200 ease-out data-[on=true]:scale-100 data-[on=true]:opacity-100 [@media(pointer:fine)]:grid"
+        className="pointer-events-none absolute left-0 top-0 -ml-14 -mt-14 hidden size-28 scale-50 flex-col items-center justify-center gap-1 rounded-full bg-signal text-cream opacity-0 transition-[opacity,scale,transform] duration-200 ease-out data-[on=true]:scale-100 data-[on=true]:opacity-100 [@media(pointer:fine)]:flex"
       >
-        Visit
-        <br />
-        site ↗
+        <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M7 17 17 7M9 7h8v8" />
+        </svg>
+        <span className="text-sm font-medium leading-none">Visit site</span>
       </span>
     </a>
   );

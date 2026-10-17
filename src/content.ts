@@ -72,6 +72,7 @@ export const services = {
 export const work = {
   lead: "Work that's",
   accent: "live right now",
+  more: { label: "More projects on GitHub", url: contact.github },
   items: [
     {
       name: "Glow with Nutrition",
