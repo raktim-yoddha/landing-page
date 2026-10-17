@@ -77,17 +77,8 @@ function Card({ item, i }: { item: Item; i: number }) {
       style={{ zIndex: i + 1 }}
       className="group/card flex w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
-      {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
-      <ShotLink item={item} className="p-5 md:h-auto md:w-1/2 md:p-10">
-        <Image
-          src={item.image}
-          alt={`${item.name} homepage screenshot`}
-          width={item.size[0]}
-          height={item.size[1]}
-          sizes="(min-width: 768px) 560px, 90vw"
-          draggable={false}
-          className="h-auto max-h-full w-auto max-w-full object-contain transition-transform duration-700 ease-out group-hover/card:scale-[1.03] md:max-w-[88%]"
-        />
+      <ShotLink item={item} className="p-5 pb-8 pr-8 md:h-auto md:w-1/2 md:p-10 md:pb-12 md:pr-12">
+        <BrowserFrame item={item} sizes="(min-width: 768px) 560px, 90vw" className="md:max-w-[90%]" />
       </ShotLink>
       <div className="flex min-h-0 flex-1 p-3 md:p-6">
         <div className="flex flex-1 flex-col border border-orange p-5 md:p-10">
@@ -138,5 +129,45 @@ export function ShotLink({ item, children, className = "" }: { item: Item; child
     >
       {children}
     </a>
+  );
+}
+
+/**
+ * Screenshot shown as a browser window: charcoal title bar with the real address,
+ * and a rust block offset behind it. Dark and light sites both read as "a website
+ * in a window" instead of a bare rectangle on the card.
+ */
+export function BrowserFrame({ item, sizes, className = "" }: { item: Item; sizes: string; className?: string }) {
+  const u = new URL(item.url);
+  const address = (u.host.replace(/^www\./, "") + u.pathname).replace(/\/$/, "");
+  return (
+    <div className={`relative w-full ${className}`}>
+      <div
+        aria-hidden
+        className="absolute inset-0 translate-x-3 translate-y-3 bg-rust transition-transform duration-500 ease-out group-hover/card:translate-x-4 group-hover/card:translate-y-4 md:translate-x-4 md:translate-y-4 md:group-hover/card:translate-x-5 md:group-hover/card:translate-y-5"
+      />
+      <div className="relative overflow-hidden bg-ink transition-transform duration-500 ease-out group-hover/card:-translate-x-0.5 group-hover/card:-translate-y-0.5">
+        <div className="flex items-center gap-3 px-3 py-2 md:px-4 md:py-2.5">
+          <span aria-hidden className="flex gap-1.5">
+            <span className="size-2 rounded-full bg-flame md:size-2.5" />
+            <span className="size-2 rounded-full bg-orange md:size-2.5" />
+            <span className="size-2 rounded-full bg-cream/40 md:size-2.5" />
+          </span>
+          <span className="min-w-0 flex-1 truncate rounded-full bg-black/35 px-3 py-1 text-center text-[11px] text-cream/75 md:text-xs">
+            {address}
+          </span>
+          <span aria-hidden className="w-[30px] md:w-[38px]" />
+        </div>
+        <Image
+          src={item.image}
+          alt={`${item.name} homepage screenshot`}
+          width={item.size[0]}
+          height={item.size[1]}
+          sizes={sizes}
+          draggable={false}
+          className="block h-auto w-full"
+        />
+      </div>
+    </div>
   );
 }

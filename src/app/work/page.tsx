@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { CtaButton } from "@/components/CtaButton";
 import { Sequence, SplitReveal } from "@/components/Gsap";
 import { Reveal } from "@/components/Motion";
 import { VisitCursor } from "@/components/VisitCursor";
-import { ShotLink, type Item } from "@/components/WorkStack";
+import { BrowserFrame, ShotLink, type Item } from "@/components/WorkStack";
 import { work } from "@/content";
 
 export const metadata: Metadata = {
@@ -66,16 +65,8 @@ export default function WorkPage() {
 function ProjectTile({ p }: { p: Item }) {
   return (
     <article className="group/card flex flex-col bg-beige">
-      <ShotLink item={p} className="aspect-[16/10] p-5 md:p-8">
-        <Image
-          src={p.image}
-          alt={`${p.name} homepage screenshot`}
-          width={p.size[0]}
-          height={p.size[1]}
-          sizes="(min-width: 768px) 600px, 92vw"
-          draggable={false}
-          className="h-auto max-h-full w-auto max-w-full object-contain transition-transform duration-700 ease-out group-hover/card:scale-[1.03]"
-        />
+      <ShotLink item={p} className="p-5 pb-8 pr-8 md:p-10 md:pb-12 md:pr-12">
+        <BrowserFrame item={p} sizes="(min-width: 768px) 560px, 90vw" />
       </ShotLink>
       <div className="flex flex-1 p-3 md:p-5">
         <div className="flex flex-1 flex-col border border-orange p-5 md:p-8">
