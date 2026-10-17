@@ -1,19 +1,29 @@
 import type { ReactNode } from "react";
 
-/** Square red button with arrows on both sides, like the reference. */
-export function CtaButton({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
+/**
+ * Square red booking button. Two arrows keep nudging in toward the label (CSS
+ * `cta-nudge`, globals.css); `small` is the compact header version.
+ */
+export function CtaButton({
+  href,
+  children,
+  className = "",
+  small = false,
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+  small?: boolean;
+}) {
+  const size = small ? "gap-2 px-3 py-2.5 text-[13px] md:gap-2.5 md:px-4 md:py-3 md:text-sm" : "gap-3 px-6 py-4 text-sm";
   return (
     <a
       href={href}
-      className={`group inline-flex items-center gap-3 bg-signal px-6 py-4 text-sm font-medium text-cream transition-[background-color,transform] duration-200 hover:bg-ink active:scale-[0.97] ${className}`}
+      className={`inline-flex items-center whitespace-nowrap bg-signal font-medium text-cream transition-[background-color,transform] duration-200 hover:bg-ink active:scale-[0.97] ${size} ${className}`}
     >
-      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-        →
-      </span>
+      <span aria-hidden className="cta-nudge">→</span>
       {children}
-      <span aria-hidden className="transition-transform duration-300 group-hover:-translate-x-1">
-        ←
-      </span>
+      <span aria-hidden className="cta-nudge cta-nudge-left">←</span>
     </a>
   );
 }

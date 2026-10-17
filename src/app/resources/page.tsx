@@ -29,9 +29,9 @@ export default function ResourcesPage() {
             <span aria-hidden className="transition-transform group-hover:-translate-x-1">←</span>
             Main website
           </Link>
-          <Link href="/#book" className="bg-signal px-4 py-3 text-[13px] font-medium text-cream transition-colors hover:bg-ink md:px-5 md:text-sm">
-            Work with me
-          </Link>
+          <CtaButton href="/#book" small>
+            Book a free call
+          </CtaButton>
         </div>
       </header>
 

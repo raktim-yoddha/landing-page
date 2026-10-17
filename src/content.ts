@@ -144,8 +144,7 @@ export const community = {
       count: "1,000+ subscribers",
       url: contact.youtube,
       cta: "Subscribe on YouTube",
-      tone: "rust",
-      motif: "play",
+      brand: "youtube",
     },
     {
       name: "Join the Discord",
@@ -153,8 +152,7 @@ export const community = {
       count: "250+ members",
       url: contact.discord,
       cta: "Join the server",
-      tone: "ink",
-      motif: "chat",
+      brand: "discord",
     },
     {
       name: "Follow on Twitch",
@@ -162,8 +160,7 @@ export const community = {
       count: "Live streams",
       url: contact.twitch,
       cta: "Follow on Twitch",
-      tone: "orange",
-      motif: "live",
+      brand: "twitch",
     },
   ],
   resources: {

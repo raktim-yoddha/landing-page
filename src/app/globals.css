@@ -92,6 +92,23 @@ summary {
   }
 }
 
+/* Booking button arrows keep pointing in at the label. Tiny transform loop, cheap everywhere. */
+@media (prefers-reduced-motion: no-preference) {
+  .cta-nudge {
+    display: inline-block;
+    animation: cta-nudge 1.1s ease-in-out infinite;
+  }
+  .cta-nudge-left {
+    --nudge: -5px;
+  }
+}
+@keyframes cta-nudge {
+  50% {
+    transform: translateX(var(--nudge, 5px));
+    opacity: 0.55;
+  }
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {

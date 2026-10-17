@@ -44,9 +44,9 @@ export default function Home() {
             <a href="#community" className="hover:text-signal">Community</a>
             <a href="#faq" className="hover:text-signal">FAQ</a>
           </nav>
-          <a href={bookingUrl} className="bg-signal px-4 py-3 text-[13px] font-medium text-cream transition-colors hover:bg-ink md:px-5 md:text-sm">
+          <CtaButton href={bookingUrl} small>
             Book a free call
-          </a>
+          </CtaButton>
         </div>
       </header>
 
