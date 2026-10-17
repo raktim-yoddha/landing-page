@@ -10,9 +10,9 @@ import "./Gsap"; // registers ScrollTrigger
 type Item = (typeof work.items)[number];
 
 /**
- * Pinned stage. Each next card slides up from below while the current one sinks
- * back and fades out, so only one card is ever visible. Without motion (reduced
- * motion or no JS) the cards are a plain list.
+ * Pinned stage (tablet and up). Each next card slides up from below while the current
+ * one sinks back and fades out, so only one card is ever visible. Phones, reduced
+ * motion and no-JS get a plain list.
  */
 export function WorkStack() {
   const stage = useRef<HTMLDivElement>(null);
@@ -23,7 +23,7 @@ export function WorkStack() {
       const cards = gsap.utils.toArray<HTMLElement>("[data-card]", el);
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         el.dataset.stack = "on";
         // Park the waiting cards fully below the viewport.
         const below = () => window.innerHeight;
@@ -61,7 +61,7 @@ export function WorkStack() {
   return (
     <div
       ref={stage}
-      className="group/stack flex flex-col items-center gap-8 px-4 pb-24 pt-10 data-[stack=on]:grid data-[stack=on]:h-svh data-[stack=on]:place-items-center data-[stack=on]:gap-0 data-[stack=on]:overflow-hidden data-[stack=on]:pb-0 data-[stack=on]:pt-[72px] md:px-8"
+      className="group/stack flex flex-col items-center gap-6 px-4 pb-10 pt-10 md:gap-8 md:pb-24 data-[stack=on]:grid data-[stack=on]:h-svh data-[stack=on]:place-items-center data-[stack=on]:gap-0 data-[stack=on]:overflow-hidden data-[stack=on]:pb-0 data-[stack=on]:pt-[72px] md:px-8"
     >
       {work.items.map((item, i) => (
         <Card key={item.name} item={item} i={i} />
@@ -75,7 +75,7 @@ function Card({ item, i }: { item: Item; i: number }) {
     <article
       data-card
       style={{ zIndex: i + 1 }}
-      className="group/card flex h-[min(calc(100svh-112px),720px)] w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
+      className="group/card flex w-full max-w-[1280px] origin-top flex-col overflow-hidden bg-beige group-data-[stack=on]/stack:[grid-area:1/1] md:h-[min(calc(100svh-140px),640px)] md:flex-row"
     >
       {/* Screenshot sits smaller inside a black field so the whole page always fits. */}
       <ShotLink item={item}>
@@ -148,7 +148,7 @@ function ShotLink({ item, children }: { item: Item; children: React.ReactNode })
       onPointerEnter={(e) => toggle(e, true)}
       onPointerMove={move}
       onPointerLeave={(e) => toggle(e, false)}
-      className="relative grid h-[40%] shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
+      className="relative grid shrink-0 select-none place-items-center overflow-hidden bg-black p-5 [-webkit-user-drag:none] [@media(pointer:fine)]:cursor-none md:h-auto md:w-1/2 md:p-10"
     >
       {children}
       <span

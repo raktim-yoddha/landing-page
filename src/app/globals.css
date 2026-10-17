@@ -64,8 +64,8 @@ summary {
   outline-offset: 3px;
 }
 
-/* Reveal (Motion.tsx): fade and rise once in view. */
-@media (prefers-reduced-motion: no-preference) {
+/* Reveal (Motion.tsx): fade and rise once in view. Tablet and up only; phones stay still. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
     opacity: 0;
     transform: translateY(24px);
@@ -80,7 +80,7 @@ summary {
 }
 
 /* Hero entrance: same fade and rise as Reveal, but CSS-only so it runs on first paint. */
-@media (prefers-reduced-motion: no-preference) {
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   .hero-in {
     animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }

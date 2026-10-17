@@ -52,9 +52,9 @@ export default function Home() {
 
       <main id="main">
         {/* Hero */}
-        <section className="overflow-hidden pt-32 max-md:flex max-md:min-h-svh max-md:flex-col max-md:justify-center max-md:pb-10 max-md:pt-24 md:pt-40">
+        <section className="overflow-hidden pt-28 md:pt-40">
           <ScrollAway className="mx-auto max-w-[1200px] px-4 text-center">
-            <SplitReveal as="h1" onLoad className="text-[clamp(2rem,7vw,6.25rem)] leading-[1] tracking-[-0.03em]">
+            <SplitReveal as="h1" onLoad className="text-[2.75rem] leading-[1] tracking-[-0.03em] md:text-[clamp(2rem,7vw,6.25rem)]">
               <span className="block">{hero.lead}</span>
               <span className="block font-serif italic">{hero.accent}</span>
             </SplitReveal>
@@ -66,10 +66,10 @@ export default function Home() {
               <CtaButton href={bookingUrl}>{hero.cta}</CtaButton>
             </div>
             <div className="hero-in [animation-delay:0.32s]">
-              <dl className="mx-auto mt-12 grid max-w-[760px] grid-cols-3 gap-4">
+              <dl className="mx-auto mt-10 grid max-w-[760px] grid-cols-3 items-start gap-3 md:mt-12 md:gap-4">
                 {hero.stats.map((s) => (
-                  <div key={s.label} className="flex flex-col-reverse items-center gap-1">
-                    <dt className="text-[13px] leading-tight text-ink/80 md:text-sm">{s.label}</dt>
+                  <div key={s.label} className="flex flex-col items-center gap-1">
+                    <dt className="order-2 max-w-[14ch] text-[13px] leading-tight text-ink/80 md:max-w-none md:text-sm">{s.label}</dt>
                     <dd className="text-3xl font-medium tracking-tight tabular-nums md:text-4xl">
                       <Counter value={s.value} suffix={s.suffix} />
                     </dd>
@@ -82,7 +82,7 @@ export default function Home() {
         </section>
 
         {/* Giant wordmark */}
-        <div aria-hidden className="mt-20 overflow-hidden md:mt-28">
+        <div aria-hidden className="mt-12 overflow-hidden md:mt-28">
           <ScrubX distance={-20}>
             <div className="flex w-max animate-marquee [--marquee-duration:30s] max-md:animate-none">
               {Array.from({ length: 4 }, (_, i) => (
@@ -95,23 +95,23 @@ export default function Home() {
         </div>
 
         {/* Services */}
-        <section id="services" className="py-24 md:py-40" aria-labelledby="services-title">
-          <div className="mx-auto mb-14 max-w-[900px] px-4 text-center md:mb-20">
+        <section id="services" className="py-16 md:py-40" aria-labelledby="services-title">
+          <div className="mx-auto mb-10 max-w-[900px] px-4 text-center md:mb-20">
             <Heading id="services-title" lead={services.lead} accent={services.accent} />
           </div>
           <Services />
         </section>
 
         {/* Work: pinned cards that slide over each other */}
-        <section id="work" className="bg-orange pt-24 md:pt-32" aria-labelledby="work-title">
+        <section id="work" className="bg-orange pt-16 md:pt-32" aria-labelledby="work-title">
           <div className="px-4 text-center">
             <Heading id="work-title" lead={work.lead} accent={work.accent} className="text-black" />
             <Reveal as="span" delay={0.3} className="mt-4 block text-4xl text-black">
-              <span aria-hidden className="inline-block animate-bounce">↓</span>
+              <span aria-hidden className="inline-block md:animate-bounce">↓</span>
             </Reveal>
           </div>
           <WorkStack />
-          <Reveal className="flex justify-center px-4 pb-24 md:pb-32">
+          <Reveal className="flex justify-center px-4 pb-16 md:pb-32">
             <a
               href={work.more.url}
               target="_blank"
@@ -126,7 +126,7 @@ export default function Home() {
         </section>
 
         {showReviews && (
-          <section className="mx-auto max-w-[1280px] px-4 py-24 md:px-8 md:py-32" aria-labelledby="reviews-title">
+          <section className="mx-auto max-w-[1280px] px-4 py-16 md:px-8 md:py-32" aria-labelledby="reviews-title">
             <p className="mb-6 bg-flame px-3 py-2 text-sm text-cream">
               Dev only: placeholder reviews. Hidden in production until real quotes replace them in content.ts.
             </p>
@@ -147,7 +147,7 @@ export default function Home() {
         )}
 
         {/* Community */}
-        <section id="community" className="mx-auto max-w-[1280px] px-4 py-24 md:px-8 md:py-40" aria-labelledby="community-title">
+        <section id="community" className="mx-auto max-w-[1280px] px-4 py-16 md:px-8 md:py-40" aria-labelledby="community-title">
           <div className="text-center">
             <Heading id="community-title" lead={community.lead} accent={community.accent} />
             <Reveal as="p" delay={0.2} className="mx-auto mt-5 max-w-[40ch] text-balance font-serif text-xl italic leading-snug md:text-2xl">
@@ -158,7 +158,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="mx-auto max-w-[960px] px-4 pb-24 md:pb-40" aria-labelledby="faq-title">
+        <section id="faq" className="mx-auto max-w-[960px] px-4 pb-16 md:pb-40" aria-labelledby="faq-title">
           <div className="text-center">
             <Heading id="faq-title" lead={faq.lead} accent={faq.accent} />
           </div>
@@ -178,7 +178,7 @@ export default function Home() {
         </section>
 
         {/* Booking */}
-        <section id="book" className="bg-beige px-4 py-24 md:py-32" aria-labelledby="book-title">
+        <section id="book" className="bg-beige px-4 py-16 md:py-32" aria-labelledby="book-title">
           <div className="mx-auto max-w-[900px] text-center">
             <Heading id="book-title" lead={booking.lead} accent={booking.accent} />
             <Reveal as="p" delay={0.2} className="mt-4 font-serif text-xl italic md:text-2xl">

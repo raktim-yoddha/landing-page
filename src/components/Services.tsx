@@ -58,7 +58,7 @@ export function Services() {
         </div>
       </div>
 
-      <div className="space-y-16 md:space-y-0">
+      <div className="space-y-12 md:space-y-0">
         {services.items.map((s, i) => (
           <section
             key={s.name}
@@ -70,10 +70,10 @@ export function Services() {
             className="flex flex-col justify-center md:min-h-[62vh]"
             aria-labelledby={`service-${i}-title`}
           >
-            <h3 id={`service-${i}-title`} className="text-sm uppercase tracking-wide text-rust md:sr-only">
+            <h3 id={`service-${i}-title`} className="sr-only">
               {s.name}
             </h3>
-            <Reveal as="p" className="mt-3 max-w-[30ch] font-serif text-2xl italic leading-tight md:mt-0 md:text-3xl lg:text-4xl">{s.outcome}</Reveal>
+            <Reveal as="p" className="max-w-[30ch] font-serif text-2xl italic leading-tight md:text-3xl lg:text-4xl">{s.outcome}</Reveal>
             <ClipReveal className="mt-8 bg-beige p-6 md:p-12">
               <p className="text-3xl font-medium tracking-tight md:text-5xl" aria-hidden>
                 {s.name}

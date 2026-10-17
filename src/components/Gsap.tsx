@@ -111,6 +111,9 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
         },
         scrollTrigger: { trigger: el, start: "top 95%", once: true },
       });
+      return () => {
+        el.textContent = fmt(value);
+      };
     });
     return () => mm.revert();
   });
