@@ -162,11 +162,18 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="mx-auto max-w-[960px] px-4 pb-16 md:pb-40" aria-labelledby="faq-title">
-          <div className="text-center">
-            <Heading id="faq-title" lead={faq.lead} accent={faq.accent} />
+        {/* Heading stays put (sticky) on tablet and up while the questions scroll past on the right. */}
+        <section
+          id="faq"
+          className="mx-auto grid max-w-[1280px] gap-12 px-4 pb-16 md:grid-cols-[minmax(250px,1fr)_2fr] md:gap-16 md:px-8 md:pb-40"
+          aria-labelledby="faq-title"
+        >
+          <div className="text-center md:text-left">
+            <div className="md:sticky md:top-36">
+              <Heading id="faq-title" lead={faq.lead} accent={faq.accent} />
+            </div>
           </div>
-          <div className="mt-12 border-t border-ink/20 md:mt-16">
+          <div className="border-t border-ink/20">
             {faq.items.map((f, i) => (
               <Reveal key={f.q} delay={i * 0.05}>
                 <details className="group border-b border-ink/20">
