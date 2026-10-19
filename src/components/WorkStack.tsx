@@ -11,7 +11,7 @@ export type Item = (typeof work.items)[number];
 
 /**
  * Pinned stage (tablet and up). Each next card slides up from below while the current
- * one sinks back and fades out, so only one card is ever visible. Phones, reduced
+ * one drifts up a touch, shrinks and fades out, so only one card is ever visible. Phones, reduced
  * motion and no-JS get a plain list.
  */
 export function WorkStack() {
@@ -44,7 +44,9 @@ export function WorkStack() {
         tl.addLabel("card-0");
         cards.slice(1).forEach((card, i) => {
           tl.fromTo(card, { y: below }, { y: 0 }, `card-${i}`)
-            .to(cards[i], { scale: 0.88, yPercent: -6, opacity: 0, ease: "power1.in" }, `card-${i}`)
+            // Outgoing card eases back in place: shrinks from its centre so its top edge never
+            // rises above the incoming card, lifts only slightly, and fades early.
+            .to(cards[i], { scale: 0.94, y: -24, opacity: 0, transformOrigin: "50% 50%", ease: "power1.out" }, `card-${i}`)
             .addLabel(`card-${i + 1}`);
         });
 
