@@ -142,6 +142,17 @@ details > summary::-webkit-details-marker {
   margin-block: -0.14em;
 }
 
+/* SplitReveal `live`: after the reveal each letter thins out and back, offset per letter
+   so a wave rolls along the word. Positive delays let every letter start at rest. */
+.is-live .split-char {
+  animation: breathe 5s ease-in-out calc(var(--i) * 0.45s) infinite;
+}
+@keyframes breathe {
+  50% {
+    font-weight: 300;
+  }
+}
+
 @keyframes split-failsafe {
   to {
     visibility: visible;

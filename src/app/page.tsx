@@ -224,7 +224,7 @@ export default function Home() {
           </div>
           {/* Sized in container units so the name spans exactly the footer's content width. */}
           <div aria-hidden className="@container mt-16 md:mt-24">
-            <SplitReveal as="p" type="chars" className="whitespace-nowrap text-[13.4cqw] font-semibold leading-[0.8] tracking-[-0.05em]">
+            <SplitReveal as="p" type="chars" live className="whitespace-nowrap text-[13.4cqw] font-semibold leading-[0.8] tracking-[-0.05em]">
               RAKTIM YODDHA
             </SplitReveal>
           </div>
