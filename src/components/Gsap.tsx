@@ -75,7 +75,19 @@ export function SplitReveal({
           autoSplit: true,
           onSplit(self) {
             gsap.set(el, { visibility: "visible" });
-            if (live) self.chars.forEach((c, i) => (c as HTMLElement).style.setProperty("--i", String(i)));
+            if (live) {
+              // Lock each letter's box at its resting width (em, so it scales with the text) and
+              // centre the glyph in it: the weight change then breathes in place instead of
+              // pushing every following letter sideways.
+              const em = parseFloat(getComputedStyle(el).fontSize);
+              self.chars.forEach((c, i) => {
+                const mask = c.parentElement!;
+                (c as HTMLElement).style.setProperty("--i", String(i));
+                mask.style.width = `${parseFloat(getComputedStyle(mask).width) / em}em`;
+                mask.style.display = "inline-block";
+                mask.style.textAlign = "center";
+              });
+            }
             return gsap.from(type === "chars" ? self.chars : self.lines, {
               yPercent: 120,
               duration: type === "chars" ? 0.8 : 1,
