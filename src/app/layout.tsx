@@ -45,7 +45,7 @@ const jsonLd = {
       name: "Raktim Yoddha",
       jobTitle: "Product Designer & Developer",
       url: siteUrl,
-      image: `${siteUrl}/mypic.png`,
+      image: `${siteUrl}/mypic.webp`,
       email: `mailto:${contact.email}`,
       address: { "@type": "PostalAddress", addressRegion: "Gujarat", addressCountry: "IN" },
       sameAs: [contact.youtube, contact.twitch, contact.github],
